@@ -15,31 +15,26 @@
  *
  */
 
-package com.liuwuping.sm.data.remote;
+package com.liuwuping.sm.view.login;
 
-import retrofit2.http.Body;
-import retrofit2.http.POST;
-import rx.Observable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
+import com.liuwuping.sm.R;
+import com.liuwuping.sm.view.base.BaseActivity;
 
 /**
  * Author:liuwuping
- * Date: 16/4/24
+ * Date: 16/4/25
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public interface GithubApi {
-
-    public static final String CLIENT_ID="";
-    public static final String CLIENT_SECRET="";
+public class LoginActivity extends BaseActivity {
 
 
-    @POST("/authorizations")
-    Observable<AuthorizationResponse> getToken(@Body AuthorizationRequest request);
-
-
-
-
-
-
-
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+    }
 }
