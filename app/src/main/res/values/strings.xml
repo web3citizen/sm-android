@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SM</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!--菜单-->
+    <string name="nav_trending">Trending</string>
+    <string name="nav_untag">未分类</string>
+    <string name="nav_tag">标签</string>
+
+</resources>
