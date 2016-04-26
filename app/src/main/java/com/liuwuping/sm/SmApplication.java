@@ -19,6 +19,8 @@ package com.liuwuping.sm;
 
 import android.app.Application;
 
+import com.liuwuping.sm.data.local.SharedPrefManager;
+
 /**
  * Author:liuwuping
  * Date: 16/4/21
@@ -30,5 +32,6 @@ public class SmApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        SharedPrefManager.init(this);
     }
 }

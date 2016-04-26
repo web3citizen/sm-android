@@ -15,14 +15,17 @@
  *
  */
 
-package com.liuwuping.sm.data.remote;
+package com.liuwuping.sm.view.base;
 
 /**
- * Author:liuwuping
- * Date: 16/4/25
- * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
- * Description:
+ * Author:  liuwp
+ * Email:   liuwuping1206@163.com
+ * Date:    2016/4/26
+ * Description:MVP的Presenter接口
  */
-public class AuthorizationRequest {
+public interface Presenter<V extends MvpView> {
 
+    void attachView(V view);
+
+    void detachView();
 }

@@ -29,12 +29,29 @@ import com.liuwuping.sm.view.base.BaseActivity;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginContract.View {
+
+    private LoginPresenter presenter;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        presenter = new LoginPresenter();
+        presenter.attachView(this);
+    }
+
+    /***
+     * MPV View interface implementation
+     ***/
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }

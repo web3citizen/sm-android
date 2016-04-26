@@ -21,8 +21,7 @@ package com.liuwuping.sm.view.base;
  * Author:liuwuping
  * Date: 16/4/24
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
- * Description:
+ * Description:MVP的view接口
  */
-public interface BaseView<T> {
-    void setPresenter(T presenter);
+public interface MvpView {
 }

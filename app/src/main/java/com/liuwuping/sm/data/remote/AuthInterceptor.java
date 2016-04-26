@@ -23,8 +23,5 @@ package com.liuwuping.sm.data.remote;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class AuthorizationResponse {
-    private String id;
-    private String token;
-
+public class AuthInterceptor {
 }

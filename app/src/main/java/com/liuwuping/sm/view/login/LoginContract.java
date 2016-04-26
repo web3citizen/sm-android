@@ -15,25 +15,29 @@
  *
  */
 
-package com.liuwuping.sm.view.stars;
+package com.liuwuping.sm.view.login;
 
-import com.liuwuping.sm.view.base.MvpPresenter;
 import com.liuwuping.sm.view.base.MvpView;
 
 /**
  * Author:liuwuping
- * Date: 16/4/24
+ * Date: 16/4/25
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public interface StarsContract {
+public interface LoginContract {
 
+    interface View extends MvpView {
 
-    interface  View extends MvpView<Presenter> {
+        void showLoading();
+
+        void hideLoading();
 
     }
 
-    interface Presenter extends MvpPresenter {
+    interface Presenter {
+
+        void login(String username, String password);
 
     }
 }
