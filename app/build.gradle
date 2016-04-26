@@ -42,15 +42,17 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    //android
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-
-
+    //third
     compile "io.reactivex:rxandroid:$rootProject.rxAndroidVersion"
     compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitVersion"
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
 
 }

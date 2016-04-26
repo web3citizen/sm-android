@@ -16,6 +16,10 @@
  */
 
 package com.liuwuping.sm.data.remote;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Author:liuwuping
@@ -24,6 +28,46 @@ package com.liuwuping.sm.data.remote;
  * Description:
  */
 public class GithubClient {
+
+    private static final String API_URL = "";
+
+    private static volatile GithubClient instance;
+    private final GithubApi githubApi;
+
+    private GithubClient() {
+
+        OkHttpClient client = new OkHttpClient();
+//        client.setConnectTimeout(15, TimeUnit.SECONDS);
+//        client.setReadTimeout(15, TimeUnit.SECONDS);
+//        client.setWriteTimeout(15, TimeUnit.SECONDS);
+        //auto login
+        //logging
+        //client
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(API_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        githubApi = retrofit.create(GithubApi.class);
+    }
+
+
+    public static GithubClient getInstance() {
+        if (instance == null) {
+            synchronized (GithubClient.class) {
+                if (instance == null) {
+                    instance = new GithubClient();
+                }
+            }
+        }
+        return instance;
+    }
+
+
+    public GithubApi get() {
+        return githubApi;
+    }
 
 
 }
