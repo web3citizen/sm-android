@@ -24,7 +24,9 @@ import java.util.List;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -51,6 +53,11 @@ public interface GithubApi {
     //auth=token 6fcc300a8d89e373754c8395a514f1846e2f029b
     @GET("/user/starred")
     Observable<List<JsonObject>> getUserStars(@Header("Authorization") String authorization);
+
+//    /users/:username/starred
+
+    @GET("/users/{username}/starred")
+    Observable<List<JsonObject>> getStarsByUser(@Path("username") String username);
 
 
 

@@ -17,11 +17,26 @@
 
 package com.liuwuping.sm.data;
 
+import com.google.gson.JsonObject;
+import com.liuwuping.sm.data.remote.GithubClient;
+
+import java.util.List;
+
+import rx.Observable;
+
 /**
  * Author:liuwuping
  * Date: 16/4/24
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public interface DataManager {
+public class DataManager {
+
+    public static Observable<JsonObject> login(JsonObject login) {
+        return GithubClient.getInstance().get().login(login);
+    }
+
+    public static Observable<List<JsonObject>> getStarsByUser(String username){
+        return GithubClient.getInstance().get().getStarsByUser(username);
+    }
 }

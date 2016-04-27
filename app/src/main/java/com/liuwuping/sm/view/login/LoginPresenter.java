@@ -17,9 +17,17 @@
 
 package com.liuwuping.sm.view.login;
 
+
+import com.google.gson.JsonObject;
+import com.liuwuping.sm.data.DataManager;
 import com.liuwuping.sm.view.base.MvpPresenter;
 
+import java.util.List;
+
+import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author:liuwuping
@@ -31,7 +39,8 @@ public class LoginPresenter extends MvpPresenter<LoginContract.View> implements 
 
     private Subscription subscription;
 
-    public LoginPresenter() {}
+    public LoginPresenter() {
+    }
 
     @Override
     public void attachView(LoginContract.View view) {
@@ -48,30 +57,24 @@ public class LoginPresenter extends MvpPresenter<LoginContract.View> implements 
 
     @Override
     public void login(String username, String password) {
-    /*    checkViewAttached();
-        mSubscription = mDataManager.getRibots()
+        checkViewAttached();
+        subscription = DataManager.getStarsByUser(username)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<Ribot>>() {
+                .subscribe(new Subscriber<List<JsonObject>>() {
                     @Override
                     public void onCompleted() {
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Timber.e(e, "There was an error loading the ribots.");
-                        getMvpView().showError();
                     }
 
                     @Override
-                    public void onNext(List<Ribot> ribots) {
-                        if (ribots.isEmpty()) {
-                            getMvpView().showRibotsEmpty();
-                        } else {
-                            getMvpView().showRibots(ribots);
-                        }
+                    public void onNext(List<JsonObject> ribots) {
+                        getMvpView().show(ribots.size());
                     }
-                });*/
+                });
 
     }
 }

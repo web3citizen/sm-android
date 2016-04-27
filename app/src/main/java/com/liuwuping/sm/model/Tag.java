@@ -15,25 +15,13 @@
  *
  */
 
-package com.liuwuping.sm.view.stars;
-
-import com.liuwuping.sm.view.base.MvpPresenter;
-import com.liuwuping.sm.view.base.MvpView;
+package com.liuwuping.sm.model;
 
 /**
  * Author:liuwuping
- * Date: 16/4/24
+ * Date: 2016/4/27
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
- * Description:
+ * Description:标签
  */
-public interface StarsContract {
-
-
-   /* interface  View extends MvpView<Presenter> {
-
-    }
-
-    interface Presenter extends MvpPresenter {
-
-    }*/
+public class Tag {
 }

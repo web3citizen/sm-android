@@ -20,6 +20,8 @@ package com.liuwuping.sm.view.stars;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -32,12 +34,10 @@ import com.liuwuping.sm.view.base.BaseFragment;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:未分类的stars列表
  */
-public class StarsFragment extends BaseFragment{
+public class StarsFragment extends BaseFragment {
 
     public static StarsFragment newInstance() {
-
         Bundle args = new Bundle();
-
         StarsFragment fragment = new StarsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -47,6 +47,8 @@ public class StarsFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frag_untag, container, false);
-        return  root;
+        return root;
     }
+
+
 }

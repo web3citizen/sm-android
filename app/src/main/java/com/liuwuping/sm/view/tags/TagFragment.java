@@ -20,6 +20,8 @@ package com.liuwuping.sm.view.tags;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -35,7 +37,7 @@ import com.liuwuping.sm.view.base.BaseFragment;
 public class TagFragment extends BaseFragment {
 
     public static TagFragment newInstance() {
-        
+
         Bundle args = new Bundle();
 
         TagFragment fragment = new TagFragment();
@@ -48,7 +50,16 @@ public class TagFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.frag_tag, container, false);
+        View root = inflater.inflate(R.layout.frag_tags, container, false);
+        setHasOptionsMenu(true);
         return root;
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_tags, menu);
+    }
+
+
 }

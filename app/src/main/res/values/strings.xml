@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
 
     <!--菜单-->
-    <string name="nav_trending">Trending</string>
+    <string name="nav_trending">热门</string>
     <string name="nav_untag">未分类</string>
     <string name="nav_tag">标签</string>
 

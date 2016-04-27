@@ -17,8 +17,11 @@
 
 package com.liuwuping.sm.view.base;
 
+import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
+
+import com.liuwuping.sm.R;
 
 import butterknife.ButterKnife;
 
@@ -41,5 +44,23 @@ public class BaseActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    protected void switchActivity(Class<?> nextClass) {
+        Intent it = new Intent(this, nextClass);
+        startActivity(it);
+        overridePendingTransition(R.anim.activity_right_enter, R.anim.activity_left_exit);
+    }
+
+    protected void switchThenFinish(Class<?> nextClass) {
+        Intent it = new Intent(this, nextClass);
+        startActivity(it);
+        this.finish();
+        overridePendingTransition(R.anim.activity_right_enter, R.anim.activity_left_exit);
+    }
+
+    protected void switchActivity(Intent it) {
+        startActivity(it);
+        overridePendingTransition(R.anim.activity_right_enter, R.anim.activity_left_exit);
     }
 }

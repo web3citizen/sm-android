@@ -29,9 +29,8 @@ public interface LoginContract {
 
     interface View extends MvpView {
 
-        void showLoading();
+        void show(int size);
 
-        void hideLoading();
 
     }
 

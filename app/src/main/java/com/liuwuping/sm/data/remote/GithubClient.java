@@ -42,7 +42,7 @@ public class GithubClient {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
         //log
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         clientBuilder.addInterceptor(logging);
 
         //auth

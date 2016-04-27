@@ -19,9 +19,14 @@ package com.liuwuping.sm.view.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Toast;
 
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.view.base.BaseActivity;
+import com.liuwuping.sm.view.main.MainActivity;
+
+import butterknife.OnClick;
 
 /**
  * Author:liuwuping
@@ -42,16 +47,28 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         presenter.attachView(this);
     }
 
+
+    @OnClick(R.id.bt_login)
+    public void OnClick(View view) {
+//        presenter.login("thinkSky1206", "123456");
+        switchActivity(MainActivity.class);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
+    }
+
     /***
      * MPV View interface implementation
      ***/
-    @Override
-    public void showLoading() {
-
-    }
 
     @Override
-    public void hideLoading() {
-
+    public void show(int size) {
+        Toast.makeText(LoginActivity.this, "一共有" + size + "star", Toast.LENGTH_SHORT).show();
+        switchActivity(MainActivity.class);
     }
+
+
 }
