@@ -27,13 +27,14 @@
 
     <!--添加tag-->
     <io.codetail.widget.RevealFrameLayout
-        android:id="@+id/view_addtag"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/view_addtag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="invisible">

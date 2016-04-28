@@ -22,11 +22,18 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.view.base.BaseFragment;
+
+import butterknife.Bind;
+import io.codetail.animation.SupportAnimator;
+import io.codetail.animation.ViewAnimationUtils;
 
 /**
  * Author:liuwuping
@@ -36,10 +43,13 @@ import com.liuwuping.sm.view.base.BaseFragment;
  */
 public class TagFragment extends BaseFragment {
 
+    private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
+
+    @Bind(R.id.view_addtag)
+    View addTagView;
+
     public static TagFragment newInstance() {
-
         Bundle args = new Bundle();
-
         TagFragment fragment = new TagFragment();
         fragment.setArguments(args);
         return fragment;
@@ -49,7 +59,6 @@ public class TagFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.frag_tags, container, false);
         setHasOptionsMenu(true);
         return root;
@@ -61,5 +70,87 @@ public class TagFragment extends BaseFragment {
         inflater.inflate(R.menu.menu_tags, menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_tags:
+                toggle();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+    public void toggle() {
+        if (addTagView.getVisibility() != View.VISIBLE) {
+            revealOn();
+        } else {
+            revealOff();
+        }
+    }
+
+    private void revealOn() {
+        int cx = addTagView.getRight();
+        int cy = addTagView.getTop();
+        float radius = (float) Math.hypot(addTagView.getWidth(), addTagView.getHeight());
+        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(addTagView, cx, cy, 0, radius);
+        animator.setInterpolator(INTERPOLATOR);
+        animator.setDuration(getResources().getInteger(R.integer.view_reveal_mills));
+        animator.addListener(new SupportAnimator.AnimatorListener() {
+            @Override
+            public void onAnimationStart() {
+                addTagView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd() {
+                // Do nothing
+            }
+
+            @Override
+            public void onAnimationCancel() {
+                // Do nothing
+            }
+
+            @Override
+            public void onAnimationRepeat() {
+                // Do nothing
+            }
+        });
+
+        animator.start();
+    }
+
+
+    public void revealOff() {
+        int cx = addTagView.getRight();
+        int cy = addTagView.getTop();
+        float radius = (float) Math.hypot(addTagView.getWidth(), addTagView.getHeight());
+        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(addTagView, cx, cy, radius, 0);
+        animator.setInterpolator(INTERPOLATOR);
+        animator.setDuration(getResources().getInteger(R.integer.view_reveal_mills));
+        animator.addListener(new SupportAnimator.AnimatorListener() {
+            @Override
+            public void onAnimationStart() {
+            }
+
+            @Override
+            public void onAnimationEnd() {
+                addTagView.setVisibility(View.INVISIBLE);
+
+            }
+
+            @Override
+            public void onAnimationCancel() {
+                // Do nothing
+            }
+
+            @Override
+            public void onAnimationRepeat() {
+            }
+        });
+        animator.start();
+    }
 
 }
