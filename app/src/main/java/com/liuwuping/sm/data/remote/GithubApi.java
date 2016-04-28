@@ -37,10 +37,17 @@ import rx.Observable;
  */
 public interface GithubApi {
 
-    public static final String CLIENT_ID="";
-    public static final String CLIENT_SECRET="";
+    public static final String CLIENT_ID = "";
+    public static final String CLIENT_SECRET = "";
 
 //    https://api.github.com/authorizations
+
+    /*String credentials = username + ":" + password;
+    final String basic =
+            "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+            .header("Authorization", basic);
+                        .header("Accept", "application/json");
+            */
 
     @POST("/authorizations")
     Observable<JsonObject> login(@Body JsonObject request);
@@ -58,12 +65,6 @@ public interface GithubApi {
 
     @GET("/users/{username}/starred")
     Observable<List<JsonObject>> getStarsByUser(@Path("username") String username);
-
-
-
-
-
-
 
 
 }

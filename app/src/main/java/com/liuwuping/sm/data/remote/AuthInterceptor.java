@@ -17,11 +17,35 @@
 
 package com.liuwuping.sm.data.remote;
 
+import android.text.TextUtils;
+
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * Author:liuwuping
  * Date: 16/4/25
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class AuthInterceptor {
+public class AuthInterceptor implements Interceptor {
+
+    private String token = "";
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Request original = chain.request();
+        if (!TextUtils.isEmpty(token)) {
+            Request.Builder requestBuilder = original.newBuilder()
+                    .header("Authorization", String.format("token %s", token))
+                    .method(original.method(), original.body());
+            Request request = requestBuilder.build();
+            return chain.proceed(request);
+        }
+        return chain.proceed(original);
+    }
+
 }

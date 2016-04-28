@@ -21,17 +21,24 @@ import android.app.Application;
 
 import com.liuwuping.sm.data.local.SharedPrefManager;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 /**
  * Author:liuwuping
  * Date: 16/4/21
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class SmApplication extends Application{
+public class SmApplication extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         SharedPrefManager.init(this);
+        //realm
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 }

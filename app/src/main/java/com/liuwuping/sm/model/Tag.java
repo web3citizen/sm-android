@@ -17,24 +17,23 @@
 
 package com.liuwuping.sm.model;
 
+import io.realm.RealmObject;
+
 /**
  * Author:liuwuping
  * Date: 2016/4/27
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:标签
  */
-public class Tag {
-    private String id;
+/*
+Realm realm = Realm.getDefaultInstance();
+        GitHubService api = retrofit.create(GitHubService.class);
+        Observable observable= realm.where(Person.class).isNotNull("username").findAllAsync().asObservable()
+*/
+
+public class Tag extends RealmObject{
     private String name;
     private String desc;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

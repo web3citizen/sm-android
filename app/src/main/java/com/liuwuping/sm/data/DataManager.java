@@ -22,6 +22,7 @@ import com.liuwuping.sm.data.remote.GithubClient;
 
 import java.util.List;
 
+import io.realm.Realm;
 import rx.Observable;
 
 /**
@@ -36,7 +37,7 @@ public class DataManager {
         return GithubClient.getInstance().get().login(login);
     }
 
-    public static Observable<List<JsonObject>> getStarsByUser(String username){
+    public static Observable<List<JsonObject>> getStarsByUser(String username) {
         return GithubClient.getInstance().get().getStarsByUser(username);
     }
 }
