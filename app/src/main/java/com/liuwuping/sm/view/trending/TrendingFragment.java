@@ -15,7 +15,7 @@
  *
  */
 
-package com.liuwuping.sm.view.main;
+package com.liuwuping.sm.view.trending;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,14 +32,14 @@ import com.liuwuping.sm.view.base.BaseFragment;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class MainFragment extends BaseFragment{
+public class TrendingFragment extends BaseFragment{
 
 
-    public static MainFragment newInstance() {
+    public static TrendingFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        MainFragment fragment = new MainFragment();
+        TrendingFragment fragment = new TrendingFragment();
         fragment.setArguments(args);
         return fragment;
     }

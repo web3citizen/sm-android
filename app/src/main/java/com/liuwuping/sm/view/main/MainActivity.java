@@ -34,6 +34,7 @@ import com.liuwuping.sm.util.ActivityUtils;
 import com.liuwuping.sm.view.base.BaseActivity;
 import com.liuwuping.sm.view.tags.TagFragment;
 import com.liuwuping.sm.view.stars.StarsFragment;
+import com.liuwuping.sm.view.trending.TrendingFragment;
 
 import butterknife.Bind;
 
@@ -84,7 +85,7 @@ public class MainActivity extends BaseActivity
         Fragment fragment=null;
         if (id == R.id.nav_trending) {
             title=R.string.nav_trending;
-            fragment= MainFragment.newInstance();
+            fragment= TrendingFragment.newInstance();
         } else if (id == R.id.nav_untag) {
             title=R.string.nav_untag;
             fragment= StarsFragment.newInstance();
