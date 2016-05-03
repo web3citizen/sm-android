@@ -17,6 +17,8 @@
 
 package com.liuwuping.sm.data.remote;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -31,7 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class GithubClient {
 
-    private static final String API_URL = "https://api.github.com";
+    private static final String API_URL = "https://api.github.com/";
 
     private static volatile GithubClient instance;
     private final GithubApi githubApi;
@@ -42,14 +44,17 @@ public class GithubClient {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
         //log
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         clientBuilder.addInterceptor(logging);
-
-        //auth
+        //header
+        AuthInterceptor auth = new AuthInterceptor();
+        clientBuilder.addInterceptor(auth);
         //cache
         //timeout
+        clientBuilder.connectTimeout(15, TimeUnit.SECONDS);
+        clientBuilder.readTimeout(15, TimeUnit.SECONDS);
+        clientBuilder.writeTimeout(15, TimeUnit.SECONDS);
         //client
-
         OkHttpClient client = clientBuilder.build();
 
 

@@ -19,6 +19,9 @@ package com.liuwuping.sm.data.remote;
 
 import android.text.TextUtils;
 
+import com.liuwuping.sm.Constants;
+import com.liuwuping.sm.data.local.SharedPrefManager;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -33,7 +36,12 @@ import okhttp3.Response;
  */
 public class AuthInterceptor implements Interceptor {
 
-    private String token = "";
+    private String token = "aa5d43b66a41e59927978257a5e68f8851acf080";
+
+    public AuthInterceptor() {
+//        token= SharedPrefManager.getInstance().getStringValue(Constants.SHARED_TOKEN);
+        token="aa5d43b66a41e59927978257a5e68f8851acf080";
+    }
 
     @Override
     public Response intercept(Chain chain) throws IOException {

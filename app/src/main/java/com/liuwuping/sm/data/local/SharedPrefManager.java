@@ -51,7 +51,7 @@ public class SharedPrefManager {
     }
 
 
-    public void setStringValue(String key, String value) {
+    public void putStringValue(String key, String value) {
         pref.edit().putString(key, value).commit();
     }
 

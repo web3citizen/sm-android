@@ -29,7 +29,7 @@ public interface LoginContract {
 
     interface View extends MvpView {
 
-        void show(int size);
+        void show(String size);
 
 
     }

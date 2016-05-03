@@ -19,6 +19,7 @@ package com.liuwuping.sm.view.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.liuwuping.sm.R;
 import com.liuwuping.sm.view.base.BaseActivity;
 import com.liuwuping.sm.view.main.MainActivity;
 
+import butterknife.Bind;
 import butterknife.OnClick;
 
 /**
@@ -35,6 +37,11 @@ import butterknife.OnClick;
  * Description:
  */
 public class LoginActivity extends BaseActivity implements LoginContract.View {
+
+    @Bind(R.id.til_login_name)
+    TextInputLayout username;
+    @Bind(R.id.til_login_pw)
+    TextInputLayout pass;
 
     private LoginPresenter presenter;
 
@@ -50,8 +57,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @OnClick(R.id.bt_login)
     public void OnClick(View view) {
-//        presenter.login("thinkSky1206", "123456");
+        String name = username.getEditText().getText().toString();
+        String pwd = pass.getEditText().getText().toString();
         switchActivity(MainActivity.class);
+//        presenter.login(name, pwd);
     }
 
     @Override
@@ -65,8 +74,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
      ***/
 
     @Override
-    public void show(int size) {
-        Toast.makeText(LoginActivity.this, "一共有" + size + "star", Toast.LENGTH_SHORT).show();
+    public void show(String size) {
+        Toast.makeText(LoginActivity.this, size, Toast.LENGTH_SHORT).show();
         switchActivity(MainActivity.class);
     }
 

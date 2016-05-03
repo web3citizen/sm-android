@@ -18,12 +18,14 @@
 package com.liuwuping.sm.data.remote;
 
 import com.google.gson.JsonObject;
+import com.liuwuping.sm.model.Repo;
 
 import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -37,33 +39,21 @@ import rx.Observable;
  */
 public interface GithubApi {
 
-    public static final String CLIENT_ID = "";
-    public static final String CLIENT_SECRET = "";
 
-//    https://api.github.com/authorizations
-
-    /*String credentials = username + ":" + password;
-    final String basic =
-            "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-            .header("Authorization", basic);
-                        .header("Accept", "application/json");
-            */
-
-    @POST("/authorizations")
-    Observable<JsonObject> login(@Body JsonObject request);
+    @Headers("Accept: application/json")
+    @POST("authorizations")
+    Observable<JsonObject> login(@Header("Authorization") String authorization, @Body JsonObject request);
 
 
-    @POST("/user")
-    Observable<JsonObject> getUserInfo(@Header("Authorization") String authorization);
+    @POST("user")
+    Observable<JsonObject> getUserInfo();
 
 
-    //auth=token 6fcc300a8d89e373754c8395a514f1846e2f029b
-    @GET("/user/starred")
-    Observable<List<JsonObject>> getUserStars(@Header("Authorization") String authorization);
+    @GET("user/starred?page=1")
+    Observable<List<Repo>> getUserStars();
 
-//    /users/:username/starred
 
-    @GET("/users/{username}/starred")
+    @GET("users/{username}/starred")
     Observable<List<JsonObject>> getStarsByUser(@Path("username") String username);
 
 

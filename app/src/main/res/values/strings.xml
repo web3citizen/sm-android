@@ -10,5 +10,7 @@
     <string name="nav_trending">热门</string>
     <string name="nav_untag">未分类</string>
     <string name="nav_tag">标签</string>
-
+    <!--repo-->
+    <string name="repo_stars">stars:</string>
+    <string name="repo_language">language:</string>
 </resources>

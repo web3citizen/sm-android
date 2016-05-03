@@ -17,11 +17,78 @@
 
 package com.liuwuping.sm.view.trending;
 
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.liuwuping.sm.R;
+import com.liuwuping.sm.model.Repo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Author:liuwuping
  * Date: 2016/4/29
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class RepoAdapter {
+public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoItem> {
+
+    private List<Repo> items;
+
+
+    public RepoAdapter() {
+        items = new ArrayList<>();
+    }
+
+
+    public void setItems(List<Repo> items) {
+        this.items = items;
+    }
+
+    @Override
+    public RepoItem onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repo, parent, false);
+        return new RepoItem(view);
+    }
+
+    @Override
+    public void onBindViewHolder(RepoItem holder, int position) {
+        Repo repo = items.get(position);
+        holder.nameTv.setText(repo.getFull_name());
+        holder.descTv.setText(repo.getDescription());
+        holder.starsTv.setText(String.valueOf(repo.getStargazers_count()));
+        holder.languageTv.setText(repo.getLanguage());
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    public static class RepoItem extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.tv_repo_name)
+        TextView nameTv;
+        @Bind(R.id.tv_repo_desc)
+        TextView descTv;
+        @Bind(R.id.tv_repo_star)
+        TextView starsTv;
+        @Bind(R.id.tv_repo_language)
+        TextView languageTv;
+
+
+        public RepoItem(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+
+    }
 }

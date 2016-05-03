@@ -19,6 +19,7 @@ package com.liuwuping.sm.data;
 
 import com.google.gson.JsonObject;
 import com.liuwuping.sm.data.remote.GithubClient;
+import com.liuwuping.sm.model.Repo;
 
 import java.util.List;
 
@@ -33,8 +34,13 @@ import rx.Observable;
  */
 public class DataManager {
 
-    public static Observable<JsonObject> login(JsonObject login) {
-        return GithubClient.getInstance().get().login(login);
+    public static Observable<JsonObject> login(String auth, JsonObject login) {
+        return GithubClient.getInstance().get().login(auth, login);
+    }
+
+
+    public static Observable<List<Repo>> getUserStars() {
+        return GithubClient.getInstance().get().getUserStars();
     }
 
     public static Observable<List<JsonObject>> getStarsByUser(String username) {

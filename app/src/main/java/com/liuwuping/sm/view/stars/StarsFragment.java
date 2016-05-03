@@ -19,14 +19,22 @@ package com.liuwuping.sm.view.stars;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.liuwuping.sm.R;
+import com.liuwuping.sm.model.Repo;
 import com.liuwuping.sm.view.base.BaseFragment;
+import com.liuwuping.sm.view.trending.RepoAdapter;
+import com.liuwuping.sm.widget.SimplePaddingDecoration;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Author:liuwuping
@@ -34,7 +42,14 @@ import com.liuwuping.sm.view.base.BaseFragment;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:未分类的stars列表
  */
-public class StarsFragment extends BaseFragment {
+public class StarsFragment extends BaseFragment implements StarsContract.View {
+
+    private RepoAdapter adapter;
+    private StarsPresenter starsPresenter;
+
+    @Bind(R.id.rv_stars)
+    RecyclerView recyclerView;
+
 
     public static StarsFragment newInstance() {
         Bundle args = new Bundle();
@@ -43,12 +58,39 @@ public class StarsFragment extends BaseFragment {
         return fragment;
     }
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        starsPresenter = new StarsPresenter();
+        starsPresenter.attachView(this);
+        starsPresenter.loadRepos();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.frag_untag, container, false);
+        View root = inflater.inflate(R.layout.frag_stars, container, false);
+        ButterKnife.bind(this, root);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        recyclerView.addItemDecoration(new SimplePaddingDecoration(this.getActivity()));
+        recyclerView.setHasFixedSize(true);
+        adapter = new RepoAdapter();
+        recyclerView.setAdapter(adapter);
         return root;
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        starsPresenter.detachView();
+
+    }
+
+    @Override
+    public void showRepos(List<Repo> repos) {
+        adapter.setItems(repos);
+        adapter.notifyDataSetChanged();
+    }
 }

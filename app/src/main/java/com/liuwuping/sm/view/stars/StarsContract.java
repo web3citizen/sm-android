@@ -17,8 +17,10 @@
 
 package com.liuwuping.sm.view.stars;
 
-import com.liuwuping.sm.view.base.MvpPresenter;
+import com.liuwuping.sm.model.Repo;
 import com.liuwuping.sm.view.base.MvpView;
+
+import java.util.List;
 
 /**
  * Author:liuwuping
@@ -29,11 +31,15 @@ import com.liuwuping.sm.view.base.MvpView;
 public interface StarsContract {
 
 
-   /* interface  View extends MvpView<Presenter> {
+    interface View extends MvpView {
+
+        void showRepos(List<Repo> repos);
 
     }
 
-    interface Presenter extends MvpPresenter {
+    interface Presenter {
 
-    }*/
+        void loadRepos();
+
+    }
 }

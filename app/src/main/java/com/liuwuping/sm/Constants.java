@@ -15,17 +15,15 @@
  *
  */
 
-package com.liuwuping.sm.view.base;
+package com.liuwuping.sm;
 
 /**
- * Author:  liuwp
- * Email:   liuwuping1206@163.com
- * Date:    2016/4/26
- * Description:MVP的Presenter接口
+ * Author:liuwuping
+ * Date: 2016/5/3
+ * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
+ * Description:
  */
-public interface Presenter<V extends MvpView> {
+public class Constants {
 
-    void attachView(V view);
-
-    void detachView();
+    public static final String SHARED_TOKEN = "token";
 }

@@ -18,44 +18,14 @@
 package com.liuwuping.sm.view.base;
 
 /**
- * Author:liuwuping
- * Date: 16/4/24
- * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
- * Description:
+ * Author:  liuwp
+ * Email:   liuwuping1206@163.com
+ * Date:    2016/4/26
+ * Description:MVP的Presenter接口
  */
-public class MvpPresenter<T extends MvpView> implements Presenter<T> {
+public interface MvpPresenter<V extends MvpView> {
 
-    private T mvpView;
+    void attachView(V view);
 
-    @Override
-    public void attachView(T view) {
-        mvpView = view;
-    }
-
-    @Override
-    public void detachView() {
-        mvpView = null;
-    }
-
-
-
-
-    public boolean isViewAttached() {
-        return mvpView != null;
-    }
-
-    public T getMvpView() {
-        return mvpView;
-    }
-
-    public void checkViewAttached() {
-        if (!isViewAttached()) throw new MvpViewNotAttachedException();
-    }
-
-    public static class MvpViewNotAttachedException extends RuntimeException {
-        public MvpViewNotAttachedException() {
-            super("Please call Presenter.attachView(MvpView) before" +
-                    " requesting data to the Presenter");
-        }
-    }
+    void detachView();
 }

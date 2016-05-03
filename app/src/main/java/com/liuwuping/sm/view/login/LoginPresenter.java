@@ -18,16 +18,9 @@
 package com.liuwuping.sm.view.login;
 
 
-import com.google.gson.JsonObject;
-import com.liuwuping.sm.data.DataManager;
-import com.liuwuping.sm.view.base.MvpPresenter;
+import com.liuwuping.sm.view.base.BaseMvpPresenter;
 
-import java.util.List;
-
-import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Author:liuwuping
@@ -35,7 +28,7 @@ import rx.schedulers.Schedulers;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class LoginPresenter extends MvpPresenter<LoginContract.View> implements LoginContract.Presenter {
+public class LoginPresenter extends BaseMvpPresenter<LoginContract.View> implements LoginContract.Presenter {
 
     private Subscription subscription;
 
@@ -58,10 +51,21 @@ public class LoginPresenter extends MvpPresenter<LoginContract.View> implements 
     @Override
     public void login(String username, String password) {
         checkViewAttached();
-        subscription = DataManager.getStarsByUser(username)
+    /*    String credentials = username + ":" + password;
+        String basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+
+        JsonArray scopes = new JsonArray();
+        scopes.add("user");
+        scopes.add("repo");
+        scopes.add("public_repo");
+
+        JsonObject request = new JsonObject();
+        request.addProperty("note", "Sm Android App 12");
+        request.add("scopes", scopes);
+        subscription = DataManager.login(basic, request)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<List<JsonObject>>() {
+                .subscribe(new Subscriber<JsonObject>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -71,10 +75,13 @@ public class LoginPresenter extends MvpPresenter<LoginContract.View> implements 
                     }
 
                     @Override
-                    public void onNext(List<JsonObject> ribots) {
-                        getMvpView().show(ribots.size());
+                    public void onNext(JsonObject result) {
+                        String token = result.get("token").getAsString();
+                        Log.e("token", "获取toke:" + token);
+                        SharedPrefManager.getInstance().putStringValue(Constants.SHARED_TOKEN, token);
+                        getMvpView().show(token);
                     }
-                });
-
+                });*/
+//        getMvpView().show("hehe");
     }
 }

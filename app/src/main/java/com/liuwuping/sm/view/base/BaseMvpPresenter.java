@@ -17,27 +17,45 @@
 
 package com.liuwuping.sm.view.base;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.View;
-
-import butterknife.ButterKnife;
-
 /**
  * Author:liuwuping
- * Date: 16/4/23
+ * Date: 16/4/24
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class BaseFragment extends Fragment {
+public class BaseMvpPresenter<T extends MvpView> implements MvpPresenter<T> {
 
-
-
+    private T mvpView;
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+    public void attachView(T view) {
+        mvpView = view;
+    }
+
+    @Override
+    public void detachView() {
+        mvpView = null;
+    }
+
+
+
+
+    public boolean isViewAttached() {
+        return mvpView != null;
+    }
+
+    public T getMvpView() {
+        return mvpView;
+    }
+
+    public void checkViewAttached() {
+        if (!isViewAttached()) throw new MvpViewNotAttachedException();
+    }
+
+    public static class MvpViewNotAttachedException extends RuntimeException {
+        public MvpViewNotAttachedException() {
+            super("Please call MvpPresenter.attachView(MvpView) before" +
+                    " requesting data to the MvpPresenter");
+        }
     }
 }
