@@ -32,7 +32,7 @@ import android.view.MenuItem;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.util.ActivityUtils;
 import com.liuwuping.sm.view.base.BaseActivity;
-import com.liuwuping.sm.view.tags.TagFragment;
+import com.liuwuping.sm.view.tags.TagsFragment;
 import com.liuwuping.sm.view.stars.StarsFragment;
 import com.liuwuping.sm.view.trending.TrendingFragment;
 
@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity
             fragment= StarsFragment.newInstance();
         }else if(id==R.id.nav_tag){
             title=R.string.nav_tag;
-            fragment=TagFragment.newInstance();
+            fragment= TagsFragment.newInstance();
         }
         final int finalTitle = title;
         final Fragment finalFragment = fragment;

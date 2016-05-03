@@ -32,6 +32,7 @@ import com.liuwuping.sm.R;
 import com.liuwuping.sm.view.base.BaseFragment;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 
@@ -41,16 +42,16 @@ import io.codetail.animation.ViewAnimationUtils;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:所有的tag列表
  */
-public class TagFragment extends BaseFragment {
+public class TagsFragment extends BaseFragment {
 
     private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
 
     @Bind(R.id.view_addtag)
     View addTagView;
 
-    public static TagFragment newInstance() {
+    public static TagsFragment newInstance() {
         Bundle args = new Bundle();
-        TagFragment fragment = new TagFragment();
+        TagsFragment fragment = new TagsFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,6 +61,7 @@ public class TagFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frag_tags, container, false);
+        ButterKnife.bind(this, root);
         setHasOptionsMenu(true);
         return root;
     }

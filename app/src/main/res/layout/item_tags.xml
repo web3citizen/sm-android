@@ -26,12 +26,14 @@
         android:id="@+id/tv_tags_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         tools:text="Android"/>
 
     <TextView
         android:id="@+id/tv_tags_item_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="描述"/>
 
 
