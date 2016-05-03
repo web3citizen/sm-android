@@ -25,7 +25,7 @@ package com.liuwuping.sm.model;
  */
 public class Repo {
 
-    private String full_name;//
+    private String full_name;
     private String description;
     private String language;
     private int stargazers_count;

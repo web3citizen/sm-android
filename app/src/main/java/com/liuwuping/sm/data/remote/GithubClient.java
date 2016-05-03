@@ -50,6 +50,7 @@ public class GithubClient {
         AuthInterceptor auth = new AuthInterceptor();
         clientBuilder.addInterceptor(auth);
         //cache
+
         //timeout
         clientBuilder.connectTimeout(15, TimeUnit.SECONDS);
         clientBuilder.readTimeout(15, TimeUnit.SECONDS);

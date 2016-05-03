@@ -40,7 +40,6 @@ public class AuthInterceptor implements Interceptor {
 
     public AuthInterceptor() {
 //        token= SharedPrefManager.getInstance().getStringValue(Constants.SHARED_TOKEN);
-        token="aa5d43b66a41e59927978257a5e68f8851acf080";
     }
 
     @Override
