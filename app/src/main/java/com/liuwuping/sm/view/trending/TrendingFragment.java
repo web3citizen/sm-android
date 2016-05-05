@@ -19,6 +19,8 @@ package com.liuwuping.sm.view.trending;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +28,25 @@ import android.view.ViewGroup;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.view.base.BaseFragment;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Author:liuwuping
  * Date: 16/4/24
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class TrendingFragment extends BaseFragment{
+public class TrendingFragment extends BaseFragment {
+
+    @Bind(R.id.tab_trending)
+    TabLayout tabLayout;
+    @Bind(R.id.vp_trending)
+    ViewPager viewPager;
 
 
     public static TrendingFragment newInstance() {
-
         Bundle args = new Bundle();
-
         TrendingFragment fragment = new TrendingFragment();
         fragment.setArguments(args);
         return fragment;
@@ -49,6 +57,12 @@ public class TrendingFragment extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frag_trending, container, false);
+        ButterKnife.bind(this, root);
+
+        viewPager.setAdapter(new TrendingFragPagerAdapter(getFragmentManager(), getActivity()));
+        tabLayout.setupWithViewPager(viewPager);
         return root;
     }
+
+
 }
