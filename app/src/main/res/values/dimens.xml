@@ -6,5 +6,10 @@
     <dimen name="margin_activity">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="divider_recycle">10dp</dimen>
+    <dimen name="divider_stars">10dp</dimen>
+    <dimen name="divider_trending_left">16dp</dimen>
+    <dimen name="divider_trending_right">16dp</dimen>
+    <dimen name="divider_trending_top">10dp</dimen>
+    <dimen name="divider_trending_bottom">10dp</dimen>
+
 </resources>

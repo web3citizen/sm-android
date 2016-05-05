@@ -60,8 +60,8 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onResume() {
+        super.onResume();
         starsPresenter = new StarsPresenter();
         starsPresenter.attachView(this);
         starsPresenter.loadRepos();
@@ -73,7 +73,8 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
         View root = inflater.inflate(R.layout.frag_stars, container, false);
         ButterKnife.bind(this, root);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        recyclerView.addItemDecoration(new SimplePaddingDecoration(this.getActivity()));
+        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(), 0, 0, 0, R.dimen.divider_stars);
+        recyclerView.addItemDecoration(decoration);
         recyclerView.setHasFixedSize(true);
         adapter = new RepoAdapter();
         recyclerView.setAdapter(adapter);

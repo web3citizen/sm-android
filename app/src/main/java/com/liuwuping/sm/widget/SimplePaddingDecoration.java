@@ -33,19 +33,32 @@ import com.liuwuping.sm.R;
  */
 public class SimplePaddingDecoration extends RecyclerView.ItemDecoration {
 
-    private int dividerHeight;
+    private int left, right, top, bottom = 0;
 
 
-    public SimplePaddingDecoration(Context context) {
-        dividerHeight = context.getResources().getDimensionPixelSize(R.dimen.divider_recycle);
+    public SimplePaddingDecoration(Context context, int leftDimen, int rightDimen, int topDimen, int bottomDimen) {
+        if (leftDimen > 0) {
+            left = context.getResources().getDimensionPixelSize(leftDimen);
+        }
+        if (rightDimen > 0) {
+            right = context.getResources().getDimensionPixelSize(rightDimen);
+        }
+        if (topDimen > 0) {
+            top = context.getResources().getDimensionPixelSize(topDimen);
+        }
+        if (bottomDimen > 0) {
+            bottom = context.getResources().getDimensionPixelSize(bottomDimen);
+        }
+
 
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-      /*  outRect.left = dividerHeight;
-        outRect.right = dividerHeight;*/
-        outRect.bottom = dividerHeight;
+        outRect.left = left;
+        outRect.right = right;
+        outRect.top = top;
+        outRect.bottom = bottom;
     }
 }

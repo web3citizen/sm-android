@@ -65,6 +65,12 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         language = getArguments().getString(LANGUAGE);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         presenter = new TrendingTabPresenter();
         presenter.attachView(this);
         presenter.loadRepos(language);
@@ -76,7 +82,10 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
         View root = inflater.inflate(R.layout.frag_trending_tab, container, false);
         ButterKnife.bind(this, root);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        recyclerView.addItemDecoration(new SimplePaddingDecoration(this.getActivity()));
+        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(),
+                R.dimen.divider_trending_left, R.dimen.divider_trending_right,
+                R.dimen.divider_trending_top, 0);
+        recyclerView.addItemDecoration(decoration);
         recyclerView.setHasFixedSize(true);
         adapter = new RepoAdapter();
         recyclerView.setAdapter(adapter);

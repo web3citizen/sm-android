@@ -34,10 +34,11 @@ import com.liuwuping.sm.R;
 public class ActivityUtils {
 
 
-    public static void replaceFragment(FragmentManager fm, Fragment fragment,int frameId){
-        FragmentTransaction ft=fm.beginTransaction();
-        ft.setCustomAnimations(R.anim.fragment_fade_enter,R.anim.fragment_fade_exit);
-        ft.replace(frameId,fragment,fragment.getClass().getSimpleName());
+    public static void replaceFragment(FragmentManager fm, Fragment fragment, int frameId) {
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
+        ft.replace(frameId, fragment, fragment.getClass().getSimpleName());
+        ft.addToBackStack(null);
         ft.commit();
     }
 

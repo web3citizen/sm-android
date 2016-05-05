@@ -42,6 +42,13 @@ public class TrendingTabPresenter extends BasePresenter<TrendingTabContract.View
     }
 
     @Override
+    public void attachView(TrendingTabContract.View view) {
+        super.attachView(view);
+        if (subscription != null)
+            subscription.unsubscribe();
+    }
+
+    @Override
     public void detachView() {
         super.detachView();
         if (subscription != null)

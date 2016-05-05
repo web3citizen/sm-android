@@ -39,6 +39,8 @@
         android:id="@+id/tv_repo_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="7"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="我是描述哦 "/>
 
