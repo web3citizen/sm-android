@@ -19,7 +19,7 @@ package com.liuwuping.sm.view.stars;
 
 import com.liuwuping.sm.data.DataManager;
 import com.liuwuping.sm.model.Repo;
-import com.liuwuping.sm.view.base.BaseMvpPresenter;
+import com.liuwuping.sm.view.base.BasePresenter;
 
 import java.util.List;
 
@@ -34,14 +34,15 @@ import rx.schedulers.Schedulers;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class StarsPresenter extends BaseMvpPresenter<StarsContract.View> implements StarsContract.Presenter {
+public class StarsPresenter extends BasePresenter<StarsContract.View> implements StarsContract.Presenter {
 
     private Subscription subscription;
 
     @Override
     public void detachView() {
         super.detachView();
-        subscription.unsubscribe();
+        if (subscription != null)
+            subscription.unsubscribe();
     }
 
     @Override

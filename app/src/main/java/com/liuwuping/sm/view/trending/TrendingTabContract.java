@@ -17,11 +17,26 @@
 
 package com.liuwuping.sm.view.trending;
 
+import com.liuwuping.sm.model.Repo;
+import com.liuwuping.sm.view.base.MvpView;
+
+import java.util.List;
+
 /**
  * Author:liuwuping
  * Date: 2016/5/4
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public interface TrendingTagContract {
+public interface TrendingTabContract {
+
+    interface View extends MvpView {
+
+        void showRepos(List<Repo> repos);
+    }
+
+    interface Presenter {
+        void loadRepos(String language);
+    }
+
 }

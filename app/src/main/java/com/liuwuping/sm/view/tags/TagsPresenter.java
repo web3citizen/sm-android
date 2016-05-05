@@ -17,7 +17,7 @@
 
 package com.liuwuping.sm.view.tags;
 
-import com.liuwuping.sm.view.base.BaseMvpPresenter;
+import com.liuwuping.sm.view.base.BasePresenter;
 
 /**
  * Author:liuwuping
@@ -25,7 +25,7 @@ import com.liuwuping.sm.view.base.BaseMvpPresenter;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class TagsPresenter extends BaseMvpPresenter<TagsContract.View> implements TagsContract.Presenter {
+public class TagsPresenter extends BasePresenter<TagsContract.View> implements TagsContract.Presenter {
     @Override
     public void loadTags() {
 

@@ -17,9 +17,13 @@
 
 package com.liuwuping.sm.view.trending;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,10 +62,36 @@ public class TrendingFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.frag_trending, container, false);
         ButterKnife.bind(this, root);
-
         viewPager.setAdapter(new TrendingFragPagerAdapter(getFragmentManager(), getActivity()));
         tabLayout.setupWithViewPager(viewPager);
         return root;
+    }
+
+    public class TrendingFragPagerAdapter extends FragmentPagerAdapter {
+        private final int PAGE_COUNT = 3;
+        private String tabTitles[] = new String[]{"all", "java", "swift"};
+        private Context context;
+
+
+        public TrendingFragPagerAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            this.context = context;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return TrendingTabFragment.newInstance(tabTitles[position]);
+        }
+
+        @Override
+        public int getCount() {
+            return PAGE_COUNT;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabTitles[position];
+        }
     }
 
 

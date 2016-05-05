@@ -15,29 +15,30 @@
  *
  */
 
-package com.liuwuping.sm.view.login;
+package com.liuwuping.sm.view.trending;
 
-
+import com.liuwuping.sm.data.DataManager;
+import com.liuwuping.sm.model.Repo;
 import com.liuwuping.sm.view.base.BasePresenter;
 
+import java.util.List;
+
+import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author:liuwuping
- * Date: 16/4/25
+ * Date: 2016/5/5
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
+public class TrendingTabPresenter extends BasePresenter<TrendingTabContract.View> implements TrendingTabContract.Presenter {
 
     private Subscription subscription;
 
-    public LoginPresenter() {
-    }
-
-    @Override
-    public void attachView(LoginContract.View view) {
-        super.attachView(view);
+    public TrendingTabPresenter() {
     }
 
     @Override
@@ -48,39 +49,25 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
-    public void login(String username, String password) {
-        checkViewAttached();
-    /*    String credentials = username + ":" + password;
-        String basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
-        JsonArray scopes = new JsonArray();
-        scopes.add("user");
-        scopes.add("repo");
-        scopes.add("public_repo");
-
-        JsonObject request = new JsonObject();
-        request.addProperty("note", "Sm Android App 12");
-        request.add("scopes", scopes);
-        subscription = DataManager.login(basic, request)
+    public void loadRepos(String language) {
+        DataManager.getTrendingRepos(language)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<JsonObject>() {
+                .subscribe(new Subscriber<List<Repo>>() {
                     @Override
                     public void onCompleted() {
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
+
                     }
 
                     @Override
-                    public void onNext(JsonObject result) {
-                        String token = result.get("token").getAsString();
-                        Log.e("token", "获取toke:" + token);
-                        SharedPrefManager.getInstance().putStringValue(Constants.SHARED_TOKEN, token);
-                        getMvpView().show(token);
+                    public void onNext(List<Repo> repos) {
+                        getMvpView().showRepos(repos);
                     }
-                });*/
-//        getMvpView().show("hehe");
+                });
     }
 }

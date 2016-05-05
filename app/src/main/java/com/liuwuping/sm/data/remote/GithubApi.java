@@ -29,6 +29,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -55,6 +56,10 @@ public interface GithubApi {
 
     @GET("users/{username}/starred")
     Observable<List<JsonObject>> getStarsByUser(@Path("username") String username);
+
+
+    @GET("http://trending.codehub-app.com/v2/trending?since=weekly")
+    Observable<List<Repo>> getTrendingRepos(@Query("language") String language);
 
 
 }

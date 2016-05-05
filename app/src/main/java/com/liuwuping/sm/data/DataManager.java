@@ -46,4 +46,8 @@ public class DataManager {
     public static Observable<List<JsonObject>> getStarsByUser(String username) {
         return GithubClient.getInstance().get().getStarsByUser(username);
     }
+
+    public static Observable<List<Repo>> getTrendingRepos(String language) {
+        return GithubClient.getInstance().get().getTrendingRepos(language);
+    }
 }

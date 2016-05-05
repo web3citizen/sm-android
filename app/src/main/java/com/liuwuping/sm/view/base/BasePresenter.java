@@ -23,7 +23,7 @@ package com.liuwuping.sm.view.base;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class BaseMvpPresenter<T extends MvpView> implements MvpPresenter<T> {
+public class BasePresenter<T extends MvpView> implements MvpPresenter<T> {
 
     private T mvpView;
 
