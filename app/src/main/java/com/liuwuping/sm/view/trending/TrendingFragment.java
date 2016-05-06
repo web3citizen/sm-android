@@ -18,14 +18,20 @@
 package com.liuwuping.sm.view.trending;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.liuwuping.sm.R;
+import com.liuwuping.sm.util.L;
 import com.liuwuping.sm.view.base.BaseFragment;
 
 import butterknife.Bind;
@@ -49,10 +55,10 @@ public class TrendingFragment extends BaseFragment {
         return fragment;
     }
 
-
     @Override
     protected void initView() {
-        viewPager.setAdapter(new TrendingFragPagerAdapter(getFragmentManager(), getActivity()));
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(new TrendingFragPagerAdapter(getChildFragmentManager(), getActivity()));
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -74,7 +80,6 @@ public class TrendingFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            Log.e("frag pos:", tabTitles[position]);
             return TrendingTabFragment.newInstance(tabTitles[position]);
         }
 
@@ -85,7 +90,6 @@ public class TrendingFragment extends BaseFragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Log.e("title pos:", tabTitles[position]);
             return tabTitles[position];
         }
     }

@@ -16,6 +16,7 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/gray">
@@ -34,25 +35,58 @@
             android:id="@+id/view_addtag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="?attr/colorPrimary"
             android:gravity="center"
             android:orientation="vertical"
+            android:padding="@dimen/dp16"
             android:visibility="invisible">
 
-            <EditText
-                android:id="@+id/et_addtag_name"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_addtag_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/MyTextInputHint">
 
-            <EditText
-                android:id="@+id/et_addtag_desc"
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/addtag_name_hint"
+                    android:theme="@style/MyEditText"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.v4.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="@dimen/dp10"/>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/MyTextInputHint">
+
+                <EditText
+                    android:id="@+id/et_addtag_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:gravity="left|top"
+                    android:hint="@string/addtag_desc_hint"
+                    android:inputType="textMultiLine"
+                    android:theme="@style/MyEditText"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp10"/>
 
             <Button
                 android:id="@+id/btn_addtag"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="@string/addtag_save"/>
 
         </LinearLayout>
 

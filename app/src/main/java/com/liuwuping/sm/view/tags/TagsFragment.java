@@ -74,19 +74,20 @@ public class TagsFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_tags:
-                toggle();
+                toggle(item);
                 break;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
 
-    public void toggle() {
+    public void toggle(MenuItem menu) {
         if (addTagView.getVisibility() != View.VISIBLE) {
             revealOn();
+            menu.setIcon(R.drawable.all_close);
         } else {
             revealOff();
+            menu.setIcon(R.drawable.all_add);
         }
     }
 

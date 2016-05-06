@@ -31,12 +31,20 @@ import java.util.List;
 public interface TagsContract {
 
     interface View extends MvpView {
+
         void showTags(List<Tag> tags);
+
+        void addTagToRecycle(Tag tag);
+
+        void toggleAddTagView();
 
     }
 
     interface Presenter {
+
         void loadTags();
+
+        void saveTag(Tag tag);
 
     }
 }

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -41,7 +42,11 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ItemView> {
     private List<Tag> items;
 
 
-    public TagAdapter(List<Tag> items) {
+    public TagAdapter() {
+        this.items=new ArrayList<>();
+    }
+
+    public void setItems(List<Tag> items) {
         this.items = items;
     }
 

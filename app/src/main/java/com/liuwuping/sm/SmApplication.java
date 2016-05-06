@@ -20,6 +20,8 @@ package com.liuwuping.sm;
 import android.app.Application;
 
 import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.util.L;
+import com.orhanobut.logger.LogLevel;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -32,10 +34,16 @@ import io.realm.RealmConfiguration;
  */
 public class SmApplication extends Application {
 
+    private static final String TAG = "sm";
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        L.init(TAG)                     // default PRETTYLOGGER or use just init()
+                .setMethodCount(1)         // default 2
+                .hideThreadInfo()             // default shown
+                .setMethodOffset(1);           // default 0
+        L.init(TAG).setLogLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
         SharedPrefManager.init(this);
         //realm
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();

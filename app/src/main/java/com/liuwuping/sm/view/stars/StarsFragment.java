@@ -60,7 +60,7 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
     @Override
     protected void initView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(), 0, 0, 0, R.dimen.divider_stars);
+        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(), 0, 0, 0, R.dimen.dp10);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setHasFixedSize(true);
         adapter = new RepoAdapter();

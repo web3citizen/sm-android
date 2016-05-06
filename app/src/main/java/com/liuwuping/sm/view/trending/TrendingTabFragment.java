@@ -17,6 +17,7 @@
 
 package com.liuwuping.sm.view.trending;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import android.view.ViewGroup;
 
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Repo;
+import com.liuwuping.sm.util.L;
 import com.liuwuping.sm.view.base.BaseFragment;
 import com.liuwuping.sm.widget.SimplePaddingDecoration;
 
@@ -67,7 +69,6 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
         language = getArguments().getString(LANGUAGE);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -80,8 +81,8 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
     protected void initView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(),
-                R.dimen.divider_trending_left, R.dimen.divider_trending_right,
-                R.dimen.divider_trending_top, 0);
+                R.dimen.dp16, R.dimen.dp16,
+                R.dimen.dp10, 0);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setHasFixedSize(true);
         adapter = new RepoAdapter();
@@ -106,4 +107,5 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
         super.onDestroyView();
         presenter.detachView();
     }
+
 }

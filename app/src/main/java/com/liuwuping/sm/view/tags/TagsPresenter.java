@@ -17,6 +17,7 @@
 
 package com.liuwuping.sm.view.tags;
 
+import com.liuwuping.sm.model.Tag;
 import com.liuwuping.sm.view.base.BasePresenter;
 
 /**
@@ -28,6 +29,11 @@ import com.liuwuping.sm.view.base.BasePresenter;
 public class TagsPresenter extends BasePresenter<TagsContract.View> implements TagsContract.Presenter {
     @Override
     public void loadTags() {
+
+    }
+
+    @Override
+    public void saveTag(Tag tag) {
 
     }
 }

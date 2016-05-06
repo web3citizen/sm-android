@@ -13,4 +13,8 @@
     <!--repo-->
     <string name="repo_stars">stars:</string>
     <string name="repo_language">language:</string>
+    <!--tag-->
+    <string name="addtag_name_hint">tag的名称</string>
+    <string name="addtag_desc_hint">tag的简单描述</string>
+    <string name="addtag_save">保存</string>
 </resources>
