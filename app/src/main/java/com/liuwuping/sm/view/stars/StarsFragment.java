@@ -52,12 +52,33 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
 
 
     public static StarsFragment newInstance() {
-        Bundle args = new Bundle();
         StarsFragment fragment = new StarsFragment();
-        fragment.setArguments(args);
         return fragment;
     }
 
+
+    @Override
+    protected void initView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(), 0, 0, 0, R.dimen.divider_stars);
+        recyclerView.addItemDecoration(decoration);
+        recyclerView.setHasFixedSize(true);
+        adapter = new RepoAdapter();
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected int getContentViewLayoutId() {
+        return R.layout.frag_stars;
+    }
+
+
+    @Override
+    public void showRepos(List<Repo> repos) {
+        adapter.setItems(repos);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onResume() {
@@ -67,31 +88,11 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
         starsPresenter.loadRepos();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.frag_stars, container, false);
-        ButterKnife.bind(this, root);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(), 0, 0, 0, R.dimen.divider_stars);
-        recyclerView.addItemDecoration(decoration);
-        recyclerView.setHasFixedSize(true);
-        adapter = new RepoAdapter();
-        recyclerView.setAdapter(adapter);
-        return root;
-    }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         starsPresenter.detachView();
-
     }
 
-    @Override
-    public void showRepos(List<Repo> repos) {
-        adapter.setItems(repos);
-        adapter.notifyDataSetChanged();
-    }
+
 }

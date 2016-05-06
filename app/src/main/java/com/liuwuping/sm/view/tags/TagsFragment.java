@@ -50,20 +50,18 @@ public class TagsFragment extends BaseFragment {
     View addTagView;
 
     public static TagsFragment newInstance() {
-        Bundle args = new Bundle();
         TagsFragment fragment = new TagsFragment();
-        fragment.setArguments(args);
         return fragment;
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.frag_tags, container, false);
-        ButterKnife.bind(this, root);
+    protected void initView() {
         setHasOptionsMenu(true);
-        return root;
+    }
+
+    @Override
+    protected int getContentViewLayoutId() {
+        return R.layout.frag_tags;
     }
 
 

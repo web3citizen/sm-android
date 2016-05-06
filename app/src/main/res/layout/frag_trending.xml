@@ -31,6 +31,7 @@
             android:id="@+id/tab_trending"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             app:tabMode="fixed"
             />
 
