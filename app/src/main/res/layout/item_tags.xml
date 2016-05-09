@@ -20,7 +20,9 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:background="@color/white"
+              android:orientation="vertical"
+              android:padding="@dimen/dp16">
 
     <TextView
         android:id="@+id/tv_tags_item_name"
@@ -33,7 +35,6 @@
         android:id="@+id/tv_tags_item_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="描述"/>
 
 

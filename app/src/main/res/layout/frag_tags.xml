@@ -62,12 +62,12 @@
 
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_addtag_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hintTextAppearance="@style/MyTextInputHint">
 
                 <EditText
-                    android:id="@+id/et_addtag_desc"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:gravity="left|top"
