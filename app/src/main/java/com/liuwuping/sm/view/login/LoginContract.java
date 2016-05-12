@@ -29,14 +29,12 @@ public interface LoginContract {
 
     interface View extends MvpView {
 
-        void show(String size);
-
-
+        void enterMain();
     }
 
     interface Presenter {
 
-        void login(String username, String password);
+        void auth(String clientId, String clientSecret,String code);
 
     }
 }

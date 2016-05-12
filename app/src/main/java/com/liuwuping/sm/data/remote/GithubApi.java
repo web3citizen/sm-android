@@ -23,6 +23,8 @@ import com.liuwuping.sm.model.Repo;
 import java.util.List;
 
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -44,6 +46,13 @@ public interface GithubApi {
     @Headers("Accept: application/json")
     @POST("authorizations")
     Observable<JsonObject> login(@Header("Authorization") String authorization, @Body JsonObject request);
+
+
+    @Headers("Accept: application/json")
+    @FormUrlEncoded
+    @POST("https://github.com/login/oauth/access_token")
+    Observable<JsonObject> getAccessToken(@Field("client_id") String client,
+                                               @Field("client_secret") String clientSecret, @Field("code") String code);
 
 
     @POST("user")

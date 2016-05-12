@@ -18,38 +18,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:gravity="center"
               android:layout_margin="@dimen/dp16"
+              android:gravity="center"
               android:orientation="vertical">
 
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_login_name"
+    <WebView
+        android:id="@+id/wv_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="match_parent"/>
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/til_login_pw"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--  <android.support.design.widget.TextInputLayout
+          android:id="@+id/til_login_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </android.support.design.widget.TextInputLayout>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              />
 
-    <Button
-        android:id="@+id/bt_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"/>
+      </android.support.design.widget.TextInputLayout>
+
+
+      <android.support.design.widget.TextInputLayout
+          android:id="@+id/til_login_pw"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              />
+      </android.support.design.widget.TextInputLayout>
+
+      <Button
+          android:id="@+id/bt_login"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Login"/>-->
 </LinearLayout>

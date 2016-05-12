@@ -36,10 +36,10 @@ import okhttp3.Response;
  */
 public class AuthInterceptor implements Interceptor {
 
-    private String token = "aa5d43b66a41e59927978257a5e68f8851acf080";
+    private String token = "";
 
     public AuthInterceptor() {
-//        token= SharedPrefManager.getInstance().getStringValue(Constants.SHARED_TOKEN);
+        token= SharedPrefManager.getInstance().getStringValue(Constants.ACCESS_TOKEN);
     }
 
     @Override

@@ -17,13 +17,18 @@
 
 package com.liuwuping.sm.view.login;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import com.liuwuping.sm.R;
+import com.liuwuping.sm.util.L;
 import com.liuwuping.sm.view.base.BaseActivity;
 import com.liuwuping.sm.view.main.MainActivity;
 
@@ -38,11 +43,14 @@ import butterknife.OnClick;
  */
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    @Bind(R.id.til_login_name)
-    TextInputLayout username;
-    @Bind(R.id.til_login_pw)
-    TextInputLayout pass;
+    private static final String AUTH_TOKEN = "https://github.com/login/oauth/authorize";
+    private static String CLIENT_ID = "6c93a6c4ecabd657cffb";
+    private static String CLIENT_SECRET = "a79c132f78e0497bef72f2ba4b6bf2db40314344";
+    private static String SCOPE = "user,repo,public_repo";
 
+
+    @Bind(R.id.wv_login)
+    WebView webView;
     private LoginPresenter presenter;
 
 
@@ -52,16 +60,30 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         setContentView(R.layout.activity_login);
         presenter = new LoginPresenter();
         presenter.attachView(this);
+        initWebView();
     }
 
+    private void initWebView() {
+        webView.getSettings().setJavaScriptEnabled(true);
+        String url = AUTH_TOKEN + "?client_id=" + CLIENT_ID + "&scope=" + SCOPE;
+        webView.setWebViewClient(new WebViewClient() {
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                L.ii("url:" + url);
+                String fragment = "?code=";
+                if (url.contains(fragment)) {
+                    webView.stopLoading();
+                    Uri uri = Uri.parse(url);
+                    String code = uri.getQueryParameter("code");
+                    L.ii("code:" + code);
+                    presenter.auth(CLIENT_ID, CLIENT_SECRET, code);
+                }
+            }
 
-    @OnClick(R.id.bt_login)
-    public void OnClick(View view) {
-        String name = username.getEditText().getText().toString();
-        String pwd = pass.getEditText().getText().toString();
-        switchActivity(MainActivity.class);
-//        presenter.login(name, pwd);
+
+        });
+        webView.loadUrl(url);
     }
+
 
     @Override
     protected void onDestroy() {
@@ -74,10 +96,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
      ***/
 
     @Override
-    public void show(String size) {
-        Toast.makeText(LoginActivity.this, size, Toast.LENGTH_SHORT).show();
+    public void enterMain() {
         switchActivity(MainActivity.class);
     }
-
-
 }

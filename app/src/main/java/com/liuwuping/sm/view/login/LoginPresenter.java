@@ -18,9 +18,17 @@
 package com.liuwuping.sm.view.login;
 
 
+import com.google.gson.JsonObject;
+import com.liuwuping.sm.Constants;
+import com.liuwuping.sm.data.DataManager;
+import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.util.L;
 import com.liuwuping.sm.view.base.BasePresenter;
 
+import rx.Subscriber;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author:liuwuping
@@ -48,20 +56,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
-    public void login(String username, String password) {
+    public void auth(String clientId, String clientSecret, String code) {
         checkViewAttached();
-    /*    String credentials = username + ":" + password;
-        String basic = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
-        JsonArray scopes = new JsonArray();
-        scopes.add("user");
-        scopes.add("repo");
-        scopes.add("public_repo");
-
-        JsonObject request = new JsonObject();
-        request.addProperty("note", "Sm Android App 12");
-        request.add("scopes", scopes);
-        subscription = DataManager.login(basic, request)
+        subscription = DataManager.getAccessToken(clientId, clientSecret, code)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<JsonObject>() {
@@ -75,12 +72,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
                     @Override
                     public void onNext(JsonObject result) {
-                        String token = result.get("token").getAsString();
-                        Log.e("token", "获取toke:" + token);
-                        SharedPrefManager.getInstance().putStringValue(Constants.SHARED_TOKEN, token);
-                        getMvpView().show(token);
+                        String token = result.get("access_token").getAsString();
+                        L.ii("access token:" + token);
+                        SharedPrefManager.getInstance().putStringValue(Constants.ACCESS_TOKEN, token);
+                        getMvpView().enterMain();
                     }
-                });*/
-//        getMvpView().show("hehe");
+                });
     }
 }

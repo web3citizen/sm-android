@@ -38,6 +38,10 @@ public class DataManager {
         return GithubClient.getInstance().get().login(auth, login);
     }
 
+    public static Observable<JsonObject> getAccessToken(String clientId, String clientSecret, String token) {
+        return GithubClient.getInstance().get().getAccessToken(clientId, clientSecret, token);
+    }
+
 
     public static Observable<List<Repo>> getUserStars() {
         return GithubClient.getInstance().get().getUserStars();

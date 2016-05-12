@@ -25,5 +25,5 @@ package com.liuwuping.sm;
  */
 public class Constants {
 
-    public static final String SHARED_TOKEN = "token";
+    public static final String ACCESS_TOKEN = "accessToken";
 }
