@@ -15,27 +15,16 @@
  *
  */
 
-package com.liuwuping.sm.view.base;
+package com.liuwp.androidtoolkit;
 
-
-import com.liuwp.androidtoolkit.base.BaseAppCompatActivity;
+import android.app.Application;
+import android.test.ApplicationTestCase;
 
 /**
- * Author:liuwuping
- * Date: 16/4/23
- * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
- * Description:
+ * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public abstract class BaseActivity extends BaseAppCompatActivity implements MvpView {
-
-
-    @Override
-    public void showLoading(String msg) {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
+public class ApplicationTest extends ApplicationTestCase<Application> {
+    public ApplicationTest() {
+        super(Application.class);
     }
 }

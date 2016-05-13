@@ -15,27 +15,27 @@
  *
  */
 
-package com.liuwuping.sm.view.base;
+package com.liuwp.androidtoolkit.uistack;
 
-
-import com.liuwp.androidtoolkit.base.BaseAppCompatActivity;
+import android.content.Context;
+import android.view.View;
 
 /**
  * Author:liuwuping
- * Date: 16/4/23
+ * Date: 2016/5/13
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public abstract class BaseActivity extends BaseAppCompatActivity implements MvpView {
+public interface IViewHelper {
+    View getCurrentLayout();
 
+    void restoreView();
 
-    @Override
-    public void showLoading(String msg) {
+    void showLayout(View view);
 
-    }
+    View inflate(int layoutId);
 
-    @Override
-    public void hideLoading() {
+    Context getContext();
 
-    }
+    View getView();
 }

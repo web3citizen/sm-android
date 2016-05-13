@@ -18,7 +18,6 @@
 package com.liuwuping.sm.view.tags;
 
 import com.liuwuping.sm.model.Tag;
-import com.liuwuping.sm.util.L;
 import com.liuwuping.sm.view.base.BasePresenter;
 
 
@@ -64,6 +63,7 @@ public class TagsPresenter extends BasePresenter<TagsContract.View> implements T
 
     @Override
     public void loadTags() {
+        getMvpView().showLoading("");
         subscription = realm.where(Tag.class).findAllAsync().asObservable()
                 .map(new Func1<RealmResults<Tag>, List<Tag>>() {
                     @Override
@@ -89,6 +89,7 @@ public class TagsPresenter extends BasePresenter<TagsContract.View> implements T
 
                     @Override
                     public void onNext(List<Tag> tags) {
+                        getMvpView().hideLoading();
                         getMvpView().showTags(tags);
 
                     }

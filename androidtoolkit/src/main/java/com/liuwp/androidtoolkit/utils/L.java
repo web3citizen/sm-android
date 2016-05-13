@@ -15,7 +15,7 @@
  *
  */
 
-package com.liuwuping.sm.util;
+package com.liuwp.androidtoolkit.utils;
 
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.Printer;

@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Repo;
-import com.liuwuping.sm.util.L;
 import com.liuwuping.sm.view.base.BaseFragment;
 import com.liuwuping.sm.widget.SimplePaddingDecoration;
 
@@ -92,6 +91,11 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
     @Override
     protected int getContentViewLayoutId() {
         return R.layout.frag_trending_tab;
+    }
+
+    @Override
+    protected View getLoadingTargetView() {
+        return recyclerView;
     }
 
 

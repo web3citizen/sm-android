@@ -20,7 +20,8 @@ package com.liuwuping.sm.data.local;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.liuwuping.sm.util.L;
+import com.liuwp.androidtoolkit.utils.L;
+
 
 /**
  * Author:liuwuping
@@ -39,7 +40,7 @@ public class SharedPrefManager {
     }
 
     public static synchronized void init(Context context) {
-        if (context == null) {
+        if (context != null) {
             instance = new SharedPrefManager(context);
             L.ii("SharedPrefManager init");
         }

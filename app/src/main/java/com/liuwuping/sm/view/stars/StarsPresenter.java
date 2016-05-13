@@ -47,6 +47,7 @@ public class StarsPresenter extends BasePresenter<StarsContract.View> implements
 
     @Override
     public void loadRepos() {
+        getMvpView().showLoading("");
         subscription = DataManager.getUserStars()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -61,6 +62,7 @@ public class StarsPresenter extends BasePresenter<StarsContract.View> implements
 
                     @Override
                     public void onNext(List<Repo> repos) {
+                        getMvpView().hideLoading();
                         getMvpView().showRepos(repos);
                     }
                 });

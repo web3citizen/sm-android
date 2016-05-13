@@ -24,4 +24,9 @@ package com.liuwuping.sm.view.base;
  * Description:MVP的view接口
  */
 public interface MvpView {
+
+    void showLoading(String msg);
+
+    void hideLoading();
+
 }

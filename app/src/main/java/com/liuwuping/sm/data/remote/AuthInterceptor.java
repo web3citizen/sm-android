@@ -36,14 +36,13 @@ import okhttp3.Response;
  */
 public class AuthInterceptor implements Interceptor {
 
-    private String token = "";
 
     public AuthInterceptor() {
-        token= SharedPrefManager.getInstance().getStringValue(Constants.ACCESS_TOKEN);
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+        String token = SharedPrefManager.getInstance().getStringValue(Constants.ACCESS_TOKEN);
         Request original = chain.request();
         if (!TextUtils.isEmpty(token)) {
             Request.Builder requestBuilder = original.newBuilder()

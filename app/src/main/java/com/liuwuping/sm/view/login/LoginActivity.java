@@ -17,23 +17,23 @@
 
 package com.liuwuping.sm.view.login;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.view.View;
+import android.text.TextUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
+import com.liuwp.androidtoolkit.utils.L;
+import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.R;
-import com.liuwuping.sm.util.L;
+import com.liuwuping.sm.data.local.SharedPrefManager;
 import com.liuwuping.sm.view.base.BaseActivity;
 import com.liuwuping.sm.view.main.MainActivity;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 /**
  * Author:liuwuping
@@ -52,12 +52,18 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Bind(R.id.wv_login)
     WebView webView;
     private LoginPresenter presenter;
+    ProgressDialog loading = null;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        String accessToken = SharedPrefManager.getInstance().getStringValue(Constants.ACCESS_TOKEN);
+        if (!TextUtils.isEmpty(accessToken)) {
+            enterMain();
+            return;
+        }
         presenter = new LoginPresenter();
         presenter.attachView(this);
         initWebView();
@@ -99,4 +105,16 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     public void enterMain() {
         switchActivity(MainActivity.class);
     }
+
+    @Override
+    public void showLoadingDialog() {
+        loading = ProgressDialog.show(this, "", getResources().getString(R.string.loading));
+
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        loading.dismiss();
+    }
+
 }

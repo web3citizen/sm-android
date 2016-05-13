@@ -57,6 +57,7 @@ public class TrendingTabPresenter extends BasePresenter<TrendingTabContract.View
 
     @Override
     public void loadRepos(String language) {
+        getMvpView().showLoading("");
         DataManager.getTrendingRepos(language)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -73,6 +74,7 @@ public class TrendingTabPresenter extends BasePresenter<TrendingTabContract.View
 
                     @Override
                     public void onNext(List<Repo> repos) {
+                        getMvpView().hideLoading();
                         getMvpView().showRepos(repos);
                     }
                 });

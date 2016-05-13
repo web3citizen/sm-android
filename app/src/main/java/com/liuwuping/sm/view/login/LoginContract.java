@@ -28,13 +28,16 @@ import com.liuwuping.sm.view.base.MvpView;
 public interface LoginContract {
 
     interface View extends MvpView {
+        void showLoadingDialog();
+
+        void hideLoadingDialog();
 
         void enterMain();
     }
 
     interface Presenter {
 
-        void auth(String clientId, String clientSecret,String code);
+        void auth(String clientId, String clientSecret, String code);
 
     }
 }

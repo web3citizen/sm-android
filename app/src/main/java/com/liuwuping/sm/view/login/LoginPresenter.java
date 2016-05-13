@@ -19,10 +19,10 @@ package com.liuwuping.sm.view.login;
 
 
 import com.google.gson.JsonObject;
+import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.data.DataManager;
 import com.liuwuping.sm.data.local.SharedPrefManager;
-import com.liuwuping.sm.util.L;
 import com.liuwuping.sm.view.base.BasePresenter;
 
 import rx.Subscriber;
@@ -58,6 +58,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     @Override
     public void auth(String clientId, String clientSecret, String code) {
         checkViewAttached();
+        getMvpView().showLoadingDialog();
         subscription = DataManager.getAccessToken(clientId, clientSecret, code)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -72,6 +73,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 
                     @Override
                     public void onNext(JsonObject result) {
+                        getMvpView().hideLoadingDialog();
                         String token = result.get("access_token").getAsString();
                         L.ii("access token:" + token);
                         SharedPrefManager.getInstance().putStringValue(Constants.ACCESS_TOKEN, token);

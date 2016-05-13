@@ -15,21 +15,15 @@
  *
  */
 
-apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-
     buildToolsVersion rootProject.ext.buildToolsVersion
 
-
     defaultConfig {
-        applicationId "com.liuwuping.sm"
         minSdkVersion rootProject.ext.minSdkVersion
-
         targetSdkVersion rootProject.ext.targetSdkVersion
-
         versionCode 1
         versionName "1.0"
     }
@@ -43,22 +37,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':androidtoolkit')
-    //android
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    //third
-    compile "io.reactivex:rxandroid:$rootProject.rxAndroidVersion"
-    compile "io.reactivex:rxjava:$rootProject.rxJavaVersion"
-    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitVersion"
-    compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-    //ui
-    compile('com.github.ozodrukh:CircularReveal:1.3.1@aar') {
-        transitive = true;
-    }
-
+    compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
+    compile 'com.orhanobut:logger:1.11'
 }

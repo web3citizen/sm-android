@@ -65,12 +65,16 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
         recyclerView.setHasFixedSize(true);
         adapter = new RepoAdapter();
         recyclerView.setAdapter(adapter);
-
     }
 
     @Override
     protected int getContentViewLayoutId() {
         return R.layout.frag_stars;
+    }
+
+    @Override
+    protected View getLoadingTargetView() {
+        return recyclerView;
     }
 
 

@@ -93,6 +93,11 @@ public class TagsFragment extends BaseFragment implements TagsContract.View {
         return R.layout.frag_tags;
     }
 
+    @Override
+    protected View getLoadingTargetView() {
+        return recyclerView;
+    }
+
     @OnClick(R.id.btn_addtag)
     public void onClick(View view) {
         String name = nameEdit.getEditText().getText().toString();
