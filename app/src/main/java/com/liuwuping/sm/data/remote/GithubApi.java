@@ -52,7 +52,7 @@ public interface GithubApi {
     @FormUrlEncoded
     @POST("https://github.com/login/oauth/access_token")
     Observable<JsonObject> getAccessToken(@Field("client_id") String client,
-                                               @Field("client_secret") String clientSecret, @Field("code") String code);
+                                          @Field("client_secret") String clientSecret, @Field("code") String code);
 
 
     @POST("user")
@@ -71,4 +71,6 @@ public interface GithubApi {
     Observable<List<Repo>> getTrendingRepos(@Query("language") String language);
 
 
+    @GET("repos/{owner}/{repo}/readme")
+    Observable<JsonObject> getReadMe(@Path("owner") String owner, @Path("repo") String repo);
 }
