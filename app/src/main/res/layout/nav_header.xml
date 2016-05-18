@@ -2,22 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="@dimen/nav_header_height"
-              android:background="@drawable/side_nav_bar"
+              android:background="?attr/colorPrimaryDark"
               android:gravity="bottom"
               android:orientation="vertical"
+              android:padding="@dimen/dp16"
               android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@android:drawable/sym_def_app_icon"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:layout_marginTop="@dimen/dp8"
         android:text="SM"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -25,6 +25,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp8"
         android:text="你的github star助手"/>
 
 </LinearLayout>

@@ -30,7 +30,7 @@ import android.view.animation.Interpolator;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Tag;
 import com.liuwuping.sm.view.base.BaseFragment;
-import com.liuwuping.sm.widget.SimplePaddingDecoration;
+import com.liuwp.androidtoolkit.recyclerview.itemdecoration.SimplePaddingDecoration;
 
 import java.util.List;
 

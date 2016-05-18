@@ -17,13 +17,15 @@
 
 package com.liuwuping.sm.model;
 
+import java.io.Serializable;
+
 /**
  * Author:liuwuping
  * Date: 2016/4/29
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class Repo {
+public class Repo implements Serializable{
 
     private String full_name;
     private String description;

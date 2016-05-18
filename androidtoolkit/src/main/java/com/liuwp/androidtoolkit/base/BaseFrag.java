@@ -17,6 +17,7 @@
 
 package com.liuwp.androidtoolkit.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.liuwp.androidtoolkit.R;
 import com.liuwp.androidtoolkit.uistack.UIStackHelper;
 
 import butterknife.ButterKnife;
@@ -81,4 +83,19 @@ public abstract class BaseFrag extends Fragment {
             uiStackHelper.restore();
         }
     }
+
+    protected void switchActivity(Class<?> nextClass) {
+        Intent it = new Intent(getActivity(), nextClass);
+        startActivity(it);
+    }
+
+    protected void switchActivity(Class<?> nextClass, Bundle bundle) {
+        Intent it = new Intent(getActivity(), nextClass);
+        if (null != bundle) {
+            it.putExtras(bundle);
+        }
+        startActivity(it);
+    }
+
+
 }

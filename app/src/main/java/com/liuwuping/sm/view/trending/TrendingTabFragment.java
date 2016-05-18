@@ -17,24 +17,22 @@
 
 package com.liuwuping.sm.view.trending;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
+import com.liuwp.androidtoolkit.recyclerview.itemevent.RecyclerItemClickSupport;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Repo;
 import com.liuwuping.sm.view.base.BaseFragment;
-import com.liuwuping.sm.widget.SimplePaddingDecoration;
+import com.liuwp.androidtoolkit.recyclerview.itemdecoration.SimplePaddingDecoration;
+import com.liuwuping.sm.view.repodetail.RepoDetailActivity;
 
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Author:liuwuping
@@ -52,6 +50,7 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
     private String language;
     private RepoAdapter adapter;
     private TrendingTabPresenter presenter;
+    private List<Repo> repos = null;
 
     public static TrendingTabFragment newInstance(String language) {
         Bundle args = new Bundle();
@@ -86,6 +85,16 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
         recyclerView.setHasFixedSize(true);
         adapter = new RepoAdapter();
         recyclerView.setAdapter(adapter);
+
+        RecyclerItemClickSupport.addTo(recyclerView).setOnItemClickListener(new RecyclerItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Repo repo = repos.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("repo", repo);
+                switchActivity(RepoDetailActivity.class, bundle);
+            }
+        });
     }
 
     @Override
@@ -101,6 +110,7 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
 
     @Override
     public void showRepos(List<Repo> repos) {
+        this.repos = repos;
         adapter.setItems(repos);
         adapter.notifyDataSetChanged();
     }

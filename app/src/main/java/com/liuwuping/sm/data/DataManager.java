@@ -54,4 +54,8 @@ public class DataManager {
     public static Observable<List<Repo>> getTrendingRepos(String language) {
         return GithubClient.getInstance().get().getTrendingRepos(language);
     }
+
+    public static Observable<JsonObject> getReadme(String owner, String repo) {
+        return GithubClient.getInstance().get().getReadMe(owner, repo);
+    }
 }

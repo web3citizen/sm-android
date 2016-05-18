@@ -15,7 +15,7 @@
  *
  */
 
-package com.liuwuping.sm.widget;
+package com.liuwp.androidtoolkit.recyclerview.itemdecoration;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -24,7 +24,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.liuwuping.sm.R;
+import com.liuwp.androidtoolkit.R;
 
 
 /**
@@ -40,7 +40,7 @@ public class SimpleDividerDecoration extends RecyclerView.ItemDecoration {
 
     public SimpleDividerDecoration(Context context) {
         dividerPaint = new Paint();
-        dividerPaint.setColor(context.getResources().getColor(R.color.colorAccent));
+        dividerPaint.setColor(context.getResources().getColor(R.color.white));
         dividerHeight = context.getResources().getDimensionPixelSize(R.dimen.dp10);
     }
 

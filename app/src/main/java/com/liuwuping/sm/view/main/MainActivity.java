@@ -64,6 +64,9 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        toolbar.setTitle(R.string.nav_trending);
+        ActivityUtils.replaceFragment(getSupportFragmentManager(), TrendingFragment.newInstance(), R.id.content_main);
     }
 
     @Override
@@ -81,17 +84,17 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         drawer.closeDrawer(GravityCompat.START);
         int id = item.getItemId();
-        int title=0;
-        Fragment fragment=null;
+        int title = 0;
+        Fragment fragment = null;
         if (id == R.id.nav_trending) {
-            title=R.string.nav_trending;
-            fragment= TrendingFragment.newInstance();
+            title = R.string.nav_trending;
+            fragment = TrendingFragment.newInstance();
         } else if (id == R.id.nav_untag) {
-            title=R.string.nav_untag;
-            fragment= StarsFragment.newInstance();
-        }else if(id==R.id.nav_tag){
-            title=R.string.nav_tag;
-            fragment= TagsFragment.newInstance();
+            title = R.string.nav_untag;
+            fragment = StarsFragment.newInstance();
+        } else if (id == R.id.nav_tag) {
+            title = R.string.nav_tag;
+            fragment = TagsFragment.newInstance();
         }
         final int finalTitle = title;
         final Fragment finalFragment = fragment;
@@ -99,7 +102,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void run() {
                 toolbar.setTitle(finalTitle);
-                ActivityUtils.replaceFragment(getSupportFragmentManager(), finalFragment,R.id.content_main);
+                ActivityUtils.replaceFragment(getSupportFragmentManager(), finalFragment, R.id.content_main);
             }
         }, DRAWER_CLOSE_DELAY_MILLS);
         return true;

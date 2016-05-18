@@ -15,42 +15,25 @@
  *
  */
 
-package com.liuwuping.sm.view.base;
+package com.liuwuping.sm.view.repodetail;
 
-
-import android.view.MenuItem;
-
-import com.liuwp.androidtoolkit.base.BaseAppCompatActivity;
+import com.liuwuping.sm.view.base.MvpView;
 
 /**
  * Author:liuwuping
- * Date: 16/4/23
+ * Date: 2016/5/18
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public abstract class BaseActivity extends BaseAppCompatActivity implements MvpView {
+public interface RepoDetailContract {
 
-
-    @Override
-    public void showLoading(String msg) {
-
+    interface View extends MvpView {
+        void loadUrl(String url);
     }
 
-    @Override
-    public void hideLoading() {
+    interface Presenter {
 
-    }
+        void getReadMeUrl(String owner, String repo);
 
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 }

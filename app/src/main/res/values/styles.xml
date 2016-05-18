@@ -5,14 +5,30 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--侧边栏menu按钮颜色-->
         <item name="drawerArrowStyle">@style/AppTheme.Base.DrawerArrowToggele</item>
-        <!--   <item name="android:textColorPrimary">@color/white</item>-->
+        <!--返回按钮颜色-->
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="AppTheme.Base.DrawerArrowToggele" parent="Base.Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/white</item>
     </style>
 
+    <!-- 启动页 -->
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <!--tab字体 -->
+    <style name="CustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <!--CollapsingToolbarLayout字体-->
+    <style name="CollapsingToolbarTitle">
+        <item name="android:textColor">@color/white</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

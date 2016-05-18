@@ -15,14 +15,12 @@
  *
  */
 
-package com.liuwuping.sm.widget;
+package com.liuwp.androidtoolkit.recyclerview.itemdecoration;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
-import com.liuwuping.sm.R;
 
 
 /**
@@ -49,8 +47,6 @@ public class SimplePaddingDecoration extends RecyclerView.ItemDecoration {
         if (bottomDimen > 0) {
             bottom = context.getResources().getDimensionPixelSize(bottomDimen);
         }
-
-
     }
 
     @Override

@@ -34,6 +34,7 @@
             android:background="?attr/colorPrimary"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/CustomTabText"
             app:tabTextColor="@color/white_50"
             />
 

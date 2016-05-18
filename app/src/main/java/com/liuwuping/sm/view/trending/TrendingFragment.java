@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.liuwuping.sm.R;
@@ -68,7 +69,7 @@ public class TrendingFragment extends BaseFragment {
 
     public class TrendingFragPagerAdapter extends FragmentPagerAdapter {
         private final int PAGE_COUNT = 3;
-        private String tabTitles[] = new String[]{"all", "java", "swift"};
+        private String tabTitles[] = new String[]{"All", "Java", "Swift"};
         private Context context;
 
 
@@ -79,7 +80,9 @@ public class TrendingFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            return TrendingTabFragment.newInstance(tabTitles[position]);
+            String title = tabTitles[position];
+            String param = Character.toLowerCase(title.charAt(0)) + title.substring(1);
+            return TrendingTabFragment.newInstance(param);
         }
 
         @Override

@@ -1,8 +1,10 @@
 <resources>
-    <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="header_height">240dp</dimen>
+
     <dimen name="dp16">16dp</dimen>
     <dimen name="dp10">10dp</dimen>
+    <dimen name="dp8">8dp</dimen>
 
 
 </resources>
