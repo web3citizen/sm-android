@@ -15,28 +15,15 @@
  *
  */
 
-package com.liuwuping.sm.view.repodetail;
+package com.liuwuping.sm.view.main;
 
-import com.liuwuping.sm.view.base.MvpView;
+import com.liuwuping.sm.view.base.BasePresenter;
 
 /**
  * Author:liuwuping
- * Date: 2016/5/18
+ * Date: 2016/5/19
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public interface RepoDetailContract {
-
-    interface View extends MvpView {
-        void showHtml(String url);
-
-        void showHeaderImage(String url);
-    }
-
-    interface Presenter {
-
-        void getReadMeUrl(String owner, String repo);
-
-        void getAvatarUrl(String username);
-    }
+public class MainPresenter extends BasePresenter<MainContract.View> {
 }

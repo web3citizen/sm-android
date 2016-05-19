@@ -26,7 +26,11 @@
     </style>
 
     <!--CollapsingToolbarLayout字体-->
-    <style name="CollapsingToolbarTitle">
+    <style name="CollapsedTitleText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ExpandedTitleText">
         <item name="android:textColor">@color/white</item>
     </style>
 

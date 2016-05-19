@@ -35,14 +35,17 @@ import rx.schedulers.Schedulers;
  * Description:
  */
 public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> implements Presenter {
-    private Subscription subscription;
+    private Subscription subscription, subscription2;
 
     @Override
     public void detachView() {
         super.detachView();
-        if (subscription != null)
+        if (subscription != null) {
             subscription.unsubscribe();
-
+        }
+        if (subscription2 != null) {
+            subscription2.unsubscribe();
+        }
     }
 
     @Override
@@ -64,7 +67,32 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
                     public void onNext(JsonObject result) {
                         String htmlUrl = result.get("html_url").getAsString();
                         L.ii("html_url:" + htmlUrl);
-                        getMvpView().loadUrl(htmlUrl);
+                        getMvpView().showHtml(htmlUrl);
+                    }
+                });
+
+    }
+
+    @Override
+    public void getAvatarUrl(String username) {
+        checkViewAttached();
+        subscription2 = DataManager.getOwnerInfo(username)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(JsonObject result) {
+                        String imageUrl = result.get("avatar_url").getAsString();
+                        L.ii("avatar_url:" + imageUrl);
+                        getMvpView().showHeaderImage(imageUrl);
                     }
                 });
 

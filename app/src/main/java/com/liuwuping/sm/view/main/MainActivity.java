@@ -28,6 +28,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.util.ActivityUtils;
@@ -52,6 +53,8 @@ public class MainActivity extends BaseActivity
     @Bind(R.id.nav_view)
     NavigationView navigationView;
 
+    private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,9 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        imageView = (ImageView) navigationView.findViewById(R.id.iv_navheader);
+
 
         toolbar.setTitle(R.string.nav_trending);
         ActivityUtils.replaceFragment(getSupportFragmentManager(), TrendingFragment.newInstance(), R.id.content_main);

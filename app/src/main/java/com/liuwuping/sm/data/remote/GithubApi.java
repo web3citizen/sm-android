@@ -43,6 +43,10 @@ import rx.Observable;
 public interface GithubApi {
 
 
+    /**
+     * ===base auth  oauth2.0===
+     **/
+
     @Headers("Accept: application/json")
     @POST("authorizations")
     Observable<JsonObject> login(@Header("Authorization") String authorization, @Body JsonObject request);
@@ -55,16 +59,38 @@ public interface GithubApi {
                                           @Field("client_secret") String clientSecret, @Field("code") String code);
 
 
-    @POST("user")
-    Observable<JsonObject> getUserInfo();
+    /**
+     * ====登录用户===
+     **/
 
+    @POST("user")
+    Observable<JsonObject> getMe();
 
     @GET("user/starred?page=1")
     Observable<List<Repo>> getUserStars();
 
 
+    /**
+     * ===其他用户===
+     **/
+
+
+    /**
+     * 获取用户信息  头像图片
+     *
+     * @return avatar_url
+     */
+    @GET("users/{username}")
+    Observable<JsonObject> getUserInfo(@Path("username") String username);
+
+
     @GET("users/{username}/starred")
     Observable<List<JsonObject>> getStarsByUser(@Path("username") String username);
+
+
+    /**
+     * ===repo===
+     **/
 
 
     @GET("http://trending.codehub-app.com/v2/trending?since=weekly")

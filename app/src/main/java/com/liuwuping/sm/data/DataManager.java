@@ -58,4 +58,8 @@ public class DataManager {
     public static Observable<JsonObject> getReadme(String owner, String repo) {
         return GithubClient.getInstance().get().getReadMe(owner, repo);
     }
+
+    public static Observable<JsonObject> getOwnerInfo(String owner) {
+        return GithubClient.getInstance().get().getUserInfo(owner);
+    }
 }
