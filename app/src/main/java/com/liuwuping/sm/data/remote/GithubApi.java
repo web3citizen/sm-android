@@ -64,7 +64,7 @@ public interface GithubApi {
      **/
 
     @POST("user")
-    Observable<JsonObject> getMe();
+    Observable<JsonObject> getLoginInfo();
 
     @GET("user/starred?page=1")
     Observable<List<Repo>> getUserStars();
@@ -77,7 +77,7 @@ public interface GithubApi {
 
     /**
      * 获取用户信息  头像图片
-     *
+     *public_repos,following,followers
      * @return avatar_url
      */
     @GET("users/{username}")

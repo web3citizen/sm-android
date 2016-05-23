@@ -31,6 +31,7 @@ public class Repo implements Serializable{
     private String description;
     private String language;
     private int stargazers_count;
+    private int forks;
 
 
     public Repo() {
@@ -66,5 +67,14 @@ public class Repo implements Serializable{
 
     public void setStargazers_count(int stargazers_count) {
         this.stargazers_count = stargazers_count;
+    }
+
+
+    public int getForks() {
+        return forks;
+    }
+
+    public void setForks(int forks) {
+        this.forks = forks;
     }
 }

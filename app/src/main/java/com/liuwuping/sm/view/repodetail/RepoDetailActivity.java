@@ -25,8 +25,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.R;
@@ -57,6 +59,12 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
     ImageView imageView;
     @Bind(R.id.pb_repodetail)
     ProgressBar progressBar;
+    @Bind(R.id.pb_repodetail_wv)
+    ProgressBar webViewProgressBar;
+    @Bind(R.id.tv_repodetail_star)
+    TextView starTv;
+    @Bind(R.id.tv_repodetail_fork)
+    TextView forkTv;
 
     private RepoDetailPresenter presenter;
 
@@ -98,6 +106,9 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
         });
 
 
+        starTv.setText(String.valueOf(repo.getStargazers_count()));
+        forkTv.setText(String.valueOf(repo.getForks()));
+
         String[] names = repo.getFull_name().split("/");
         presenter = new RepoDetailPresenter();
         presenter.attachView(this);
@@ -105,6 +116,13 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
         presenter.getAvatarUrl(names[0]);
 
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                webViewProgressBar.setVisibility(View.INVISIBLE);
+            }
+        });
 
 
     }

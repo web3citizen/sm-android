@@ -42,7 +42,7 @@ import butterknife.Bind;
  */
 public class TrendingTabFragment extends BaseFragment implements TrendingTabContract.View {
 
-    @Bind(R.id.rv_trengdingtab)
+    @Bind(R.id.rv_commom)
     RecyclerView recyclerView;
 
 
@@ -99,7 +99,7 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
 
     @Override
     protected int getContentViewLayoutId() {
-        return R.layout.frag_trending_tab;
+        return R.layout.frag_recycler;
     }
 
     @Override

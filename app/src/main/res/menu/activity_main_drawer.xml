@@ -4,42 +4,29 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_trending"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="热门"/>
+            android:icon="@drawable/trending"
+            android:title="@string/nav_trending"/>
         <item
             android:id="@+id/nav_untag"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="未分类"/>
+            android:icon="@drawable/stars"
+            android:title="@string/nav_untag"/>
         <item
             android:id="@+id/nav_tag"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="标签"/>
+            android:icon="@drawable/tag"
+            android:title="@string/nav_tag"/>
 
         <item
             android:id="@+id/nav_me"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="我的"/>
+            android:icon="@drawable/me"
+            android:title="@string/nav_me"/>
         <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_share"
-            android:title="关于app"/>
+            android:id="@+id/nav_about"
+            android:icon="@drawable/about"
+            android:title="@string/nav_about"/>
         <item
-            android:id="@+id/nav_send"
-            android:icon="@drawable/ic_menu_send"
-            android:title="关于作者"/>
+            android:id="@+id/nav_developer"
+            android:icon="@drawable/developer"
+            android:title="@string/nav_developer"/>
     </group>
-
-    <!--  <item android:title="Communicate">
-          <menu>
-              <item
-                  android:id="@+id/nav_share"
-                  android:icon="@drawable/ic_menu_share"
-                  android:title="关于app"/>
-              <item
-                  android:id="@+id/nav_send"
-                  android:icon="@drawable/ic_menu_send"
-                  android:title="关于作者"/>
-          </menu>
-      </item>-->
 
 </menu>

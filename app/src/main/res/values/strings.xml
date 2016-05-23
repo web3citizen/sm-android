@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">SM</string>
+    <string name="app_desc">你的github stars管理助手</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -10,6 +11,9 @@
     <string name="nav_trending">热门</string>
     <string name="nav_untag">未分类</string>
     <string name="nav_tag">标签</string>
+    <string name="nav_me">我</string>
+    <string name="nav_about">关于App</string>
+    <string name="nav_developer">关于开发者</string>
     <!--repo-->
     <string name="repo_stars">stars:</string>
     <string name="repo_language">language:</string>
@@ -17,4 +21,6 @@
     <string name="addtag_name_hint">tag的名称</string>
     <string name="addtag_desc_hint">tag的简单描述</string>
     <string name="addtag_save">保存</string>
+    <!-- about -->
+    <string name="version">版本：</string>
 </resources>

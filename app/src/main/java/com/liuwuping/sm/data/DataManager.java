@@ -62,4 +62,8 @@ public class DataManager {
     public static Observable<JsonObject> getOwnerInfo(String owner) {
         return GithubClient.getInstance().get().getUserInfo(owner);
     }
+
+    public static Observable<JsonObject> getLoginInof() {
+        return GithubClient.getInstance().get().getLoginInfo();
+    }
 }

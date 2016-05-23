@@ -32,18 +32,24 @@ import android.widget.ImageView;
 
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.util.ActivityUtils;
+import com.liuwuping.sm.view.about.AboutFragment;
 import com.liuwuping.sm.view.base.BaseActivity;
+import com.liuwuping.sm.view.developer.DeveloperFragment;
 import com.liuwuping.sm.view.tags.TagsFragment;
 import com.liuwuping.sm.view.stars.StarsFragment;
 import com.liuwuping.sm.view.trending.TrendingFragment;
+import com.liuwuping.sm.view.user.UserFragment;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
     private static final long DRAWER_CLOSE_DELAY_MILLS = 300L;
+
+    private MainPresenter presenter;
 
 
     @Bind(R.id.toolbar_main)
@@ -60,6 +66,7 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.nav_trending);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -69,10 +76,18 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         imageView = (ImageView) navigationView.findViewById(R.id.iv_navheader);
+//        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_camera));
 
 
-        toolbar.setTitle(R.string.nav_trending);
+        presenter = new MainPresenter();
+        presenter.attachView(this);
+//        presenter.getLogoUrl();
+
+        navigationView.setCheckedItem(R.id.nav_trending);
+
+
         ActivityUtils.replaceFragment(getSupportFragmentManager(), TrendingFragment.newInstance(), R.id.content_main);
+
     }
 
     @Override
@@ -101,6 +116,15 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_tag) {
             title = R.string.nav_tag;
             fragment = TagsFragment.newInstance();
+        } else if (id == R.id.nav_me) {
+            title = R.string.nav_me;
+            fragment = UserFragment.newInstance();
+        } else if (id == R.id.nav_about) {
+            title = R.string.nav_about;
+            fragment = AboutFragment.newInstance();
+        } else if (id == R.id.nav_developer) {
+            title = R.string.nav_developer;
+            fragment = DeveloperFragment.newInstance();
         }
         final int finalTitle = title;
         final Fragment finalFragment = fragment;
@@ -112,5 +136,18 @@ public class MainActivity extends BaseActivity
             }
         }, DRAWER_CLOSE_DELAY_MILLS);
         return true;
+    }
+
+    @Override
+    public void showUserLogo(String imageUrl) {
+        Picasso.with(this)
+                .load(imageUrl)
+                .into(imageView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 }

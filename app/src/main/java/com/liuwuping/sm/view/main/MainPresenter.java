@@ -17,7 +17,14 @@
 
 package com.liuwuping.sm.view.main;
 
+import com.google.gson.JsonObject;
+import com.liuwuping.sm.data.DataManager;
 import com.liuwuping.sm.view.base.BasePresenter;
+
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author:liuwuping
@@ -25,5 +32,38 @@ import com.liuwuping.sm.view.base.BasePresenter;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class MainPresenter extends BasePresenter<MainContract.View> {
+public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
+    private Subscription subscription;
+
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        if (subscription != null)
+            subscription.unsubscribe();
+    }
+
+    @Override
+    public void getLogoUrl() {
+        checkViewAttached();
+        subscription = DataManager.getLoginInof()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(JsonObject result) {
+                        String imageUrl = result.get("avatar_url").getAsString();
+                        getMvpView().showUserLogo(imageUrl);
+                    }
+                });
+
+    }
 }
