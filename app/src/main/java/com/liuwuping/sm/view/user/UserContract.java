@@ -17,42 +17,11 @@
 
 package com.liuwuping.sm.view.user;
 
-import android.os.Bundle;
-import android.view.View;
-
-import com.liuwuping.sm.R;
-import com.liuwuping.sm.view.base.BaseFragment;
-
 /**
  * Author:liuwuping
- * Date: 2016/5/23
+ * Date: 2016/5/24
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class UserTabFragment  extends BaseFragment{
-
-
-    public static UserTabFragment newInstance() {
-        
-        Bundle args = new Bundle();
-        
-        UserTabFragment fragment = new UserTabFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-    
-    @Override
-    protected void initView() {
-        
-    }
-
-    @Override
-    protected int getContentViewLayoutId() {
-        return R.layout.frag_recycler;
-    }
-
-    @Override
-    protected View getLoadingTargetView() {
-        return null;
-    }
+public interface UserContract {
 }

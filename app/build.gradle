@@ -56,6 +56,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitVersion"
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
     //ui
     compile('com.github.ozodrukh:CircularReveal:1.3.1@aar') {
         transitive = true;

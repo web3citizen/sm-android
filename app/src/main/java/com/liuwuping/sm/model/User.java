@@ -24,7 +24,22 @@ package com.liuwuping.sm.model;
  * Description:
  */
 public class User {
-/*
+
+
+    private String login;//thinkSKY
+    private String name;//小武站台
+    private String avatar_url;//头像
+    private String location;//Guangzhou,China
+    private String email;
+    private int public_repos;
+    private int followers;
+    private int following;
+
+    public User() {
+    }
+
+
+    /*
     {
         "login": "thinkSky1206",
             "id": 8503270,
@@ -68,4 +83,69 @@ public class User {
                 "private_repos": 0
     }
     }*/
+
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getPublic_repos() {
+        return public_repos;
+    }
+
+    public void setPublic_repos(int public_repos) {
+        this.public_repos = public_repos;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public int getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(int following) {
+        this.following = following;
+    }
 }

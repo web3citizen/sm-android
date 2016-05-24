@@ -19,6 +19,7 @@ package com.liuwuping.sm;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.data.local.SharedPrefManager;
 import com.orhanobut.logger.LogLevel;
@@ -50,5 +51,7 @@ public class SmApplication extends Application {
         //realm
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfiguration);
+        //Stetho
+        Stetho.initializeWithDefaults(this);
     }
 }

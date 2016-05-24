@@ -1,6 +1,7 @@
 <resources>
     <dimen name="nav_header_height">160dp</dimen>
-    <dimen name="header_height">240dp</dimen>
+    <dimen name="dp240">240dp</dimen>
+    <dimen name="dp256">256dp</dimen>
 
     <dimen name="dp16">16dp</dimen>
     <dimen name="dp10">10dp</dimen>

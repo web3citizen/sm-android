@@ -28,7 +28,6 @@ import android.view.View;
 
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.view.base.BaseFragment;
-import com.liuwuping.sm.view.trending.TrendingTabFragment;
 
 import butterknife.Bind;
 
@@ -85,9 +84,7 @@ public class UserFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-          /*  String title = tabTitles[position];
-            String param = Character.toLowerCase(title.charAt(0)) + title.substring(1);*/
-            return TrendingTabFragment.newInstance(tabTitles[position]);
+            return UserTabFragment.newInstance();
         }
 
         @Override
