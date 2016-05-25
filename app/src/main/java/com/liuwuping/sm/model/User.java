@@ -38,53 +38,6 @@ public class User {
     public User() {
     }
 
-
-    /*
-    {
-        "login": "thinkSky1206",
-            "id": 8503270,
-            "avatar_url": "https://avatars.githubusercontent.com/u/8503270?v=3",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/thinkSky1206",
-            "html_url": "https://github.com/thinkSky1206",
-            "followers_url": "https://api.github.com/users/thinkSky1206/followers",
-            "following_url": "https://api.github.com/users/thinkSky1206/following{/other_user}",
-            "gists_url": "https://api.github.com/users/thinkSky1206/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/thinkSky1206/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/thinkSky1206/subscriptions",
-            "organizations_url": "https://api.github.com/users/thinkSky1206/orgs",
-            "repos_url": "https://api.github.com/users/thinkSky1206/repos",
-            "events_url": "https://api.github.com/users/thinkSky1206/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/thinkSky1206/received_events",
-            "type": "User",
-            "site_admin": false,
-            "name": "小武站台",
-            "company": null,
-            "blog": "http://www.jianshu.com/users/ba6770f3f858/latest_articles",
-            "location": "GuangZhou,China",
-            "email": "liuwuping1206@163.com",
-            "hireable": null,
-            "bio": null,
-            "public_repos": 9,
-            "public_gists": 0,
-            "followers": 21,
-            "following": 17,
-            "created_at": "2014-08-20T13:46:16Z",
-            "updated_at": "2016-04-23T10:26:48Z",
-            "private_gists": 0,
-            "total_private_repos": 0,
-            "owned_private_repos": 0,
-            "disk_usage": 4684,
-            "collaborators": 0,
-            "plan": {
-        "name": "free",
-                "space": 976562499,
-                "collaborators": 0,
-                "private_repos": 0
-    }
-    }*/
-
-
     public String getLogin() {
         return login;
     }

@@ -18,7 +18,10 @@
 package com.liuwuping.sm.view.main;
 
 import com.google.gson.JsonObject;
+import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.data.DataManager;
+import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.model.User;
 import com.liuwuping.sm.view.base.BasePresenter;
 
 import rx.Subscriber;
@@ -44,12 +47,12 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
     }
 
     @Override
-    public void getLogoUrl() {
+    public void loadAvatar() {
         checkViewAttached();
-        subscription = DataManager.getLoginInof()
+        subscription = DataManager.getLoginUser()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<JsonObject>() {
+                .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -59,11 +62,13 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                     }
 
                     @Override
-                    public void onNext(JsonObject result) {
-                        String imageUrl = result.get("avatar_url").getAsString();
-                        getMvpView().showUserLogo(imageUrl);
+                    public void onNext(User user) {
+                        SharedPrefManager.getInstance().putStringValue(Constants.LOGIN, user.getLogin());
+                        getMvpView().showUserAvatar(user.getAvatar_url());
                     }
                 });
 
     }
+
+
 }

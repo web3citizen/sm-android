@@ -15,14 +15,12 @@
  *
  */
 
-package com.liuwuping.sm.view.repodetail;
+package com.liuwuping.sm.view.user;
 
-import com.google.gson.JsonObject;
-import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.data.DataManager;
 import com.liuwuping.sm.model.User;
 import com.liuwuping.sm.view.base.BasePresenter;
-import com.liuwuping.sm.view.repodetail.RepoDetailContract.Presenter;
+import com.liuwuping.sm.view.user.UserContract.Presenter;
 
 import rx.Subscriber;
 import rx.Subscription;
@@ -31,53 +29,26 @@ import rx.schedulers.Schedulers;
 
 /**
  * Author:liuwuping
- * Date: 2016/5/18
+ * Date: 2016/5/25
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> implements Presenter {
-    private Subscription subscription, subscription2;
+public class UserPresenter extends BasePresenter<UserContract.View> implements Presenter {
+
+    private Subscription subscription;
+
 
     @Override
     public void detachView() {
         super.detachView();
-        if (subscription != null) {
+        if (subscription != null)
             subscription.unsubscribe();
-        }
-        if (subscription2 != null) {
-            subscription2.unsubscribe();
-        }
     }
 
     @Override
-    public void getReadMeUrl(String owner, String repo) {
+    public void loadLoginUser() {
         checkViewAttached();
-        subscription = DataManager.getReadme(owner, repo)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<JsonObject>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(JsonObject result) {
-                        String htmlUrl = result.get("html_url").getAsString();
-                        L.ii("html_url:" + htmlUrl);
-                        getMvpView().showHtml(htmlUrl);
-                    }
-                });
-
-    }
-
-    @Override
-    public void getAvatarUrl(String username) {
-        checkViewAttached();
-        subscription2 = DataManager.getUser(username)
+        subscription = DataManager.getLoginUser()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<User>() {
@@ -91,7 +62,30 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
 
                     @Override
                     public void onNext(User user) {
-                        getMvpView().showHeaderImage(user.getAvatar_url());
+                        getMvpView().showUserInfo(user);
+                    }
+                });
+
+    }
+
+    @Override
+    public void loadUser(String username) {
+        checkViewAttached();
+        subscription = DataManager.getUser(username)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(User user) {
+                        getMvpView().showUserInfo(user);
                     }
                 });
 

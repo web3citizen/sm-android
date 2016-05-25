@@ -15,16 +15,20 @@
  *
  */
 
-package com.liuwuping.sm.view.trending;
+package com.liuwuping.sm.view.user;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liuwuping.sm.R;
-import com.liuwuping.sm.model.Repo;
+import com.liuwuping.sm.model.User;
+import com.liuwuping.sm.util.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,46 +38,40 @@ import butterknife.ButterKnife;
 
 /**
  * Author:liuwuping
- * Date: 2016/4/29
+ * Date: 2016/5/25
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoItem> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserItem> {
 
-    private List<Repo> items;
-    private boolean isDescShow = true;
+    private Context context;
+    private List<User> items;
 
-
-    public RepoAdapter() {
-        this(true);
-    }
-
-    public RepoAdapter(boolean isDesc) {
+    public UserAdapter(Context context) {
         items = new ArrayList<>();
-        isDescShow = isDesc;
+        this.context = context;
     }
 
 
-    public void setItems(List<Repo> items) {
+    public void setItems(List<User> items) {
         this.items = items;
     }
 
     @Override
-    public RepoItem onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repo, parent, false);
-        return new RepoItem(view);
+    public UserItem onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
+        return new UserItem(view);
     }
 
     @Override
-    public void onBindViewHolder(RepoItem holder, int position) {
-        Repo repo = items.get(position);
-        holder.nameTv.setText(repo.getFull_name());
-        holder.descTv.setText(repo.getDescription());
-        holder.starsTv.setText(String.valueOf(repo.getStargazers_count()));
-        holder.languageTv.setText(repo.getLanguage());
-        if (!isDescShow) {
-            holder.descTv.setVisibility(View.GONE);
-        }
+    public void onBindViewHolder(UserItem holder, int position) {
+        User user = items.get(position);
+        holder.nameTv.setText(user.getLogin());
+        Picasso.with(context)
+                .load(user.getAvatar_url())
+                .transform(new CircleTransform())
+                .into(holder.imageView);
+
     }
 
     @Override
@@ -81,23 +79,17 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoItem> {
         return items.size();
     }
 
-    public static class RepoItem extends RecyclerView.ViewHolder {
+    public static class UserItem extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.tv_repo_name)
+        @Bind(R.id.iv_item_user)
+        ImageView imageView;
+        @Bind(R.id.tv_item_user)
         TextView nameTv;
-        @Bind(R.id.tv_repo_desc)
-        TextView descTv;
-        @Bind(R.id.tv_repo_star)
-        TextView starsTv;
-        @Bind(R.id.tv_repo_language)
-        TextView languageTv;
 
 
-        public RepoItem(View itemView) {
+        public UserItem(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
-
     }
 }

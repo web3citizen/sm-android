@@ -17,6 +17,9 @@
 
 package com.liuwuping.sm.view.user;
 
+import com.liuwuping.sm.model.User;
+import com.liuwuping.sm.view.base.MvpView;
+
 /**
  * Author:liuwuping
  * Date: 2016/5/24
@@ -24,4 +27,15 @@ package com.liuwuping.sm.view.user;
  * Description:
  */
 public interface UserContract {
+
+    interface View extends MvpView {
+
+        void showUserInfo(User user);
+    }
+
+    interface Presenter {
+        void loadLoginUser();
+
+        void loadUser(String username);
+    }
 }

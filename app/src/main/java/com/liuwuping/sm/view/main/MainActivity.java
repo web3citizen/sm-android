@@ -32,6 +32,7 @@ import android.widget.ImageView;
 
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.util.ActivityUtils;
+import com.liuwuping.sm.util.CircleTransform;
 import com.liuwuping.sm.view.about.AboutFragment;
 import com.liuwuping.sm.view.base.BaseActivity;
 import com.liuwuping.sm.view.developer.DeveloperFragment;
@@ -76,12 +77,10 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         imageView = (ImageView) navigationView.findViewById(R.id.iv_navheader);
-//        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_menu_camera));
-
 
         presenter = new MainPresenter();
         presenter.attachView(this);
-//        presenter.getLogoUrl();
+        presenter.loadAvatar();
 
         navigationView.setCheckedItem(R.id.nav_trending);
 
@@ -139,9 +138,10 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void showUserLogo(String imageUrl) {
+    public void showUserAvatar(String imageUrl) {
         Picasso.with(this)
                 .load(imageUrl)
+                .transform(new CircleTransform())
                 .into(imageView);
     }
 

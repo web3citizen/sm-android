@@ -19,6 +19,7 @@ package com.liuwuping.sm.data.remote;
 
 import com.google.gson.JsonObject;
 import com.liuwuping.sm.model.Repo;
+import com.liuwuping.sm.model.User;
 
 import java.util.List;
 
@@ -63,26 +64,27 @@ public interface GithubApi {
      * ====登录用户===
      **/
 
-    @POST("user")
-    Observable<JsonObject> getLoginInfo();
+    @GET("user")
+    Observable<User> getLoginInfo();
 
     @GET("user/starred?page=1")
     Observable<List<Repo>> getUserStars();
 
 
     /**
-     * ===其他用户===
+     * ===用户===
      **/
-
-
-    /**
-     * 获取用户信息  头像图片
-     *public_repos,following,followers
-     * @return avatar_url
-     */
     @GET("users/{username}")
-    Observable<JsonObject> getUserInfo(@Path("username") String username);
+    Observable<User> getUserInfo(@Path("username") String username);
 
+    @GET("users/{username}/followers")
+    Observable<List<User>> getFollowers(@Path("username") String username);
+
+    @GET("users/{username}/following")
+    Observable<List<User>> getFollowing(@Path("username") String username);
+
+    @GET("users/{username}/repos")
+    Observable<List<Repo>> getRepos(@Path("username") String username);
 
     @GET("users/{username}/starred")
     Observable<List<JsonObject>> getStarsByUser(@Path("username") String username);

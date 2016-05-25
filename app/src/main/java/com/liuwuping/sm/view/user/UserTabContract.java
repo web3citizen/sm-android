@@ -17,6 +17,12 @@
 
 package com.liuwuping.sm.view.user;
 
+import com.liuwuping.sm.model.Repo;
+import com.liuwuping.sm.model.User;
+import com.liuwuping.sm.view.base.MvpView;
+
+import java.util.List;
+
 /**
  * Author:liuwuping
  * Date: 2016/5/24
@@ -24,4 +30,19 @@ package com.liuwuping.sm.view.user;
  * Description:
  */
 public interface UserTabContract {
+
+    interface View extends MvpView {
+        void showUserList(List<User> users);
+
+        void showRepoList(List<Repo> repos);
+    }
+
+    interface Presenter {
+
+        void loadRepos(String username);
+
+        void loadFollowers(String username);
+
+        void loadFollowing(String username);
+    }
 }

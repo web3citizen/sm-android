@@ -28,10 +28,10 @@ import com.liuwuping.sm.view.base.MvpView;
 public interface MainContract {
 
     interface View extends MvpView {
-        void showUserLogo(String imageUrl);
+        void showUserAvatar(String imageUrl);
     }
 
     interface Presenter {
-        void getLogoUrl();
+        void loadAvatar();
     }
 }

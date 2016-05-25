@@ -18,10 +18,23 @@
 package com.liuwuping.sm.view.user;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.liuwp.androidtoolkit.recyclerview.itemdecoration.SimplePaddingDecoration;
+import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.R;
+import com.liuwuping.sm.model.Repo;
+import com.liuwuping.sm.model.User;
 import com.liuwuping.sm.view.base.BaseFragment;
+import com.liuwuping.sm.view.repodetail.RepoDetailPresenter;
+import com.liuwuping.sm.view.trending.RepoAdapter;
+
+import java.util.List;
+
+import butterknife.Bind;
 
 /**
  * Author:liuwuping
@@ -29,21 +42,77 @@ import com.liuwuping.sm.view.base.BaseFragment;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class UserTabFragment  extends BaseFragment{
+public class UserTabFragment extends BaseFragment implements UserTabContract.View {
+
+    @Bind(R.id.rv_commom)
+    RecyclerView recyclerView;
+
+    private static final String PARAM_TYPE = "type";
+    private static final String PARAM_LOGIN = "login";
+    private String type, login;
+
+    private RepoAdapter repoAdapter;
+    private UserAdapter userAdapter;
+    private UserTagPresenter presenter;
 
 
-    public static UserTabFragment newInstance() {
-        
+    public static UserTabFragment newInstance(String login, String type) {
         Bundle args = new Bundle();
-        
+        args.putString(PARAM_TYPE, type);
+        args.putString(PARAM_LOGIN, login);
         UserTabFragment fragment = new UserTabFragment();
         fragment.setArguments(args);
         return fragment;
     }
-    
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        type = getArguments().getString(PARAM_TYPE);
+        login = getArguments().getString(PARAM_LOGIN);
+        L.ii("login:" + login + ",tab:" + type);
+    }
+
     @Override
     protected void initView() {
-        
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(),
+                R.dimen.dp16, R.dimen.dp16,
+                R.dimen.dp10, 0);
+        recyclerView.addItemDecoration(decoration);
+        recyclerView.setHasFixedSize(true);
+        if (type.equals("repos")) {
+            repoAdapter = new RepoAdapter(false);
+        } else {
+            userAdapter = new UserAdapter(getActivity());
+        }
+        if (repoAdapter != null) {
+            recyclerView.setAdapter(repoAdapter);
+        }
+        if (userAdapter != null) {
+            recyclerView.setAdapter(userAdapter);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter = new UserTagPresenter();
+        presenter.attachView(this);
+        if (type.equals("repos")) {
+            presenter.loadRepos(login);
+        } else if (type.equals("followers")) {
+            presenter.loadFollowers(login);
+        } else {
+            presenter.loadFollowing(login);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 
     @Override
@@ -54,5 +123,19 @@ public class UserTabFragment  extends BaseFragment{
     @Override
     protected View getLoadingTargetView() {
         return null;
+    }
+
+    @Override
+    public void showUserList(List<User> users) {
+        userAdapter.setItems(users);
+        userAdapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void showRepoList(List<Repo> repos) {
+        repoAdapter.setItems(repos);
+        repoAdapter.notifyDataSetChanged();
+
     }
 }

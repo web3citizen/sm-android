@@ -24,10 +24,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.R;
+import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.model.User;
 import com.liuwuping.sm.view.base.BaseFragment;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 
@@ -37,13 +44,29 @@ import butterknife.Bind;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class UserFragment extends BaseFragment {
+public class UserFragment extends BaseFragment implements UserContract.View {
+
+    public static final String PARAM_USERNAME = "username";
 
 
     @Bind(R.id.tab_user)
     TabLayout tabLayout;
     @Bind(R.id.vp_user)
     ViewPager viewPager;
+    @Bind(R.id.iv_user)
+    ImageView avatar;
+    @Bind(R.id.tv_user_login)
+    TextView loginTv;
+    @Bind(R.id.tv_user_name)
+    TextView nameTv;
+    @Bind(R.id.tv_user_location)
+    TextView locationTv;
+    @Bind(R.id.tv_user_email)
+    TextView emailTv;
+
+
+    private UserPresenter presenter;
+
 
     public static UserFragment newInstance() {
 
@@ -56,9 +79,24 @@ public class UserFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new UserFragPagerAdapter(getChildFragmentManager(), getActivity()));
         tabLayout.setupWithViewPager(viewPager);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter = new UserPresenter();
+        presenter.attachView(this);
+        presenter.loadLoginUser();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 
     @Override
@@ -71,20 +109,32 @@ public class UserFragment extends BaseFragment {
         return null;
     }
 
+    @Override
+    public void showUserInfo(User user) {
+        loginTv.setText(user.getLogin());
+        nameTv.setText(user.getName());
+        locationTv.setText(user.getLocation());
+        emailTv.setText(user.getEmail());
+        Picasso.with(getActivity())
+                .load(user.getAvatar_url())
+                .fit()
+                .into(avatar);
+
+    }
+
     public class UserFragPagerAdapter extends FragmentPagerAdapter {
         private final int PAGE_COUNT = 3;
         private String tabTitles[] = new String[]{"repos", "followers", "following"};
-        private Context context;
 
 
         public UserFragPagerAdapter(FragmentManager fm, Context context) {
             super(fm);
-            this.context = context;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return UserTabFragment.newInstance();
+            String login = SharedPrefManager.getInstance().getStringValue(Constants.LOGIN);
+            return UserTabFragment.newInstance(login, tabTitles[position]);
         }
 
         @Override

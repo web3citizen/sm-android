@@ -20,6 +20,7 @@ package com.liuwuping.sm.data;
 import com.google.gson.JsonObject;
 import com.liuwuping.sm.data.remote.GithubClient;
 import com.liuwuping.sm.model.Repo;
+import com.liuwuping.sm.model.User;
 
 import java.util.List;
 
@@ -59,11 +60,25 @@ public class DataManager {
         return GithubClient.getInstance().get().getReadMe(owner, repo);
     }
 
-    public static Observable<JsonObject> getOwnerInfo(String owner) {
+    public static Observable<User> getUser(String owner) {
         return GithubClient.getInstance().get().getUserInfo(owner);
     }
 
-    public static Observable<JsonObject> getLoginInof() {
+    public static Observable<User> getLoginUser() {
         return GithubClient.getInstance().get().getLoginInfo();
     }
+
+    public static Observable<List<User>> getFollowers(String username) {
+        return GithubClient.getInstance().get().getFollowers(username);
+    }
+
+    public static Observable<List<User>> getFollowing(String username) {
+        return GithubClient.getInstance().get().getFollowing(username);
+    }
+
+    public static Observable<List<Repo>> getUserRepos(String username) {
+        return GithubClient.getInstance().get().getRepos(username);
+    }
+
+
 }

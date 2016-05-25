@@ -20,13 +20,18 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:gravity="center_vertical"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/dp8"
+              android:paddingLeft="@dimen/dp16"
+              android:paddingTop="@dimen/dp8">
 
     <ImageView
         android:id="@+id/iv_item_user"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+
         tools:src="@mipmap/ic_launcher"/>
 
     <Space

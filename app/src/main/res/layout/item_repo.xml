@@ -31,26 +31,21 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:text="rx/RxJava"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="5dp"/>
-
     <TextView
         android:id="@+id/tv_repo_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:ellipsize="end"
         android:maxLines="7"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="我是描述哦 "/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <TextView
