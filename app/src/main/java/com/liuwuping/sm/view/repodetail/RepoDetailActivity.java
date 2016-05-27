@@ -17,11 +17,15 @@
 
 package com.liuwuping.sm.view.repodetail;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
@@ -57,14 +61,14 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
     AppBarLayout appBar;
     @Bind(R.id.iv_repodetail)
     ImageView imageView;
-    @Bind(R.id.pb_repodetail)
-    ProgressBar progressBar;
     @Bind(R.id.pb_repodetail_wv)
     ProgressBar webViewProgressBar;
     @Bind(R.id.tv_repodetail_star)
     TextView starTv;
     @Bind(R.id.tv_repodetail_fork)
     TextView forkTv;
+    @Bind(R.id.tv_repodetail_issue)
+    TextView issueTv;
 
     private RepoDetailPresenter presenter;
 
@@ -90,7 +94,6 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
 
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                L.ii("滑动：" + verticalOffset);
                 if (scrollRange == -1) {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
@@ -108,6 +111,7 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
 
         starTv.setText(String.valueOf(repo.getStargazers_count()));
         forkTv.setText(String.valueOf(repo.getForks()));
+        issueTv.setText(String.valueOf(repo.getOpen_issues()));
 
         String[] names = repo.getFull_name().split("/");
         presenter = new RepoDetailPresenter();
@@ -135,7 +139,6 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
 
     @Override
     public void showHeaderImage(String url) {
-        progressBar.setVisibility(View.VISIBLE);
         Picasso.with(this)
                 .load(url)
                 .fit()
@@ -143,7 +146,22 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
                 .into(imageView, new Callback() {
                     @Override
                     public void onSuccess() {
-                        progressBar.setVisibility(View.INVISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                                Palette p = Palette.generate(bitmap);
+                                Palette.Swatch swatch = p.getVibrantSwatch();
+                                Palette.Swatch mutedSwatch = p.getMutedSwatch();
+                                if (swatch != null) {
+                                    collapsingToolbarLayout.setContentScrimColor(swatch.getRgb());
+                                } else if (mutedSwatch != null) {
+                                    collapsingToolbarLayout.setContentScrimColor(mutedSwatch.getRgb());
+                                }
+
+                            }
+                        }, 100);
+
                     }
 
                     @Override

@@ -118,8 +118,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_user"
                 android:layout_width="match_parent"
-                android:layout_height="104dp"
-                android:minHeight="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:titleTextColor="@color/white"/>
 
