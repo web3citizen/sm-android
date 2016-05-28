@@ -83,7 +83,7 @@ public interface GithubApi {
     @GET("users/{username}/following")
     Observable<List<User>> getFollowing(@Path("username") String username);
 
-    @GET("users/{username}/repos")
+    @GET("users/{username}/repos?sort=created")
     Observable<List<Repo>> getRepos(@Path("username") String username);
 
     @GET("users/{username}/starred")

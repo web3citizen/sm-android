@@ -18,12 +18,17 @@
 package com.liuwuping.sm.view.user;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.graphics.Palette;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +39,7 @@ import com.liuwuping.sm.R;
 import com.liuwuping.sm.data.local.SharedPrefManager;
 import com.liuwuping.sm.model.User;
 import com.liuwuping.sm.view.base.BaseFragment;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -46,6 +52,9 @@ import butterknife.Bind;
  */
 public class UserFragment extends BaseFragment implements UserContract.View {
 
+    public static final String TAG_REPOS = "Repos";
+    public static final String TAG_Followers = "Followers";
+    public static final String TAG_Following = "Following";
     public static final String PARAM_USERNAME = "username";
 
 
@@ -63,6 +72,8 @@ public class UserFragment extends BaseFragment implements UserContract.View {
     TextView locationTv;
     @Bind(R.id.tv_user_email)
     TextView emailTv;
+    @Bind(R.id.collapse_user)
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
 
     private UserPresenter presenter;
@@ -118,13 +129,39 @@ public class UserFragment extends BaseFragment implements UserContract.View {
         Picasso.with(getActivity())
                 .load(user.getAvatar_url())
                 .fit()
-                .into(avatar);
+                .into(avatar, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Bitmap bitmap = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
+                                Palette p = Palette.generate(bitmap);
+                                Palette.Swatch swatch = p.getVibrantSwatch();
+                                Palette.Swatch mutedSwatch = p.getMutedSwatch();
+                                if (swatch != null) {
+                                    collapsingToolbarLayout.setBackgroundColor(swatch.getRgb());
+                                    collapsingToolbarLayout.setContentScrimColor(swatch.getRgb());
+                                } else if (mutedSwatch != null) {
+                                    collapsingToolbarLayout.setBackgroundColor(mutedSwatch.getRgb());
+                                    collapsingToolbarLayout.setContentScrimColor(mutedSwatch.getRgb());
+                                }
+
+                            }
+                        }, 100);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 
     }
 
     public class UserFragPagerAdapter extends FragmentPagerAdapter {
         private final int PAGE_COUNT = 3;
-        private String tabTitles[] = new String[]{"repos", "followers", "following"};
+        private String tabTitles[] = new String[]{UserFragment.TAG_REPOS, UserFragment.TAG_Followers, UserFragment.TAG_Following};
 
 
         public UserFragPagerAdapter(FragmentManager fm, Context context) {

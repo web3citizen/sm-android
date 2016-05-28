@@ -54,8 +54,8 @@
 
                 <ImageView
                     android:id="@+id/iv_user"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
                     android:layout_centerVertical="true"
                     android:fitsSystemWindows="true"
                     tools:background="@color/white"/>

@@ -19,12 +19,15 @@ package com.liuwuping.sm.view.login;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.Constants;
@@ -51,6 +54,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Bind(R.id.wv_login)
     WebView webView;
+    @Bind(R.id.pb_login)
+    ProgressBar progressBar;
     private LoginPresenter presenter;
     ProgressDialog loading = null;
 
@@ -85,9 +90,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 }
             }
 
-
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                progressBar.setVisibility(View.INVISIBLE);
+            }
         });
         webView.loadUrl(url);
+        webView.setBackgroundColor(Color.TRANSPARENT);
     }
 
 
