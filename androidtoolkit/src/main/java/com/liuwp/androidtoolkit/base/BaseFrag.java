@@ -17,6 +17,7 @@
 
 package com.liuwp.androidtoolkit.base;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,8 +38,16 @@ import butterknife.ButterKnife;
  * Description:
  */
 public abstract class BaseFrag extends Fragment {
-    private UIStackHelper uiStackHelper;
 
+    private UIStackHelper uiStackHelper;
+    protected BaseAppCompatActivity activity;
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = (BaseAppCompatActivity) activity;
+    }
 
     @Nullable
     @Override
@@ -66,11 +75,17 @@ public abstract class BaseFrag extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    protected abstract void initView();
 
     protected abstract int getContentViewLayoutId();
 
     protected abstract View getLoadingTargetView();
+
+    protected abstract void initView();
+
+
+    protected BaseAppCompatActivity getHostActivity() {
+        return this.activity;
+    }
 
 
     protected void toggleShowLoading(boolean toggle, String msg) {
@@ -85,12 +100,12 @@ public abstract class BaseFrag extends Fragment {
     }
 
     protected void switchActivity(Class<?> nextClass) {
-        Intent it = new Intent(getActivity(), nextClass);
+        Intent it = new Intent(getHostActivity(), nextClass);
         startActivity(it);
     }
 
     protected void switchActivity(Class<?> nextClass, Bundle bundle) {
-        Intent it = new Intent(getActivity(), nextClass);
+        Intent it = new Intent(getHostActivity(), nextClass);
         if (null != bundle) {
             it.putExtras(bundle);
         }

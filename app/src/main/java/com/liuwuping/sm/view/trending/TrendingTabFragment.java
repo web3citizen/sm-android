@@ -68,14 +68,6 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        presenter = new TrendingTabPresenter();
-        presenter.attachView(this);
-        presenter.loadRepos(language);
-    }
-
-    @Override
     protected void initView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(),
@@ -95,6 +87,10 @@ public class TrendingTabFragment extends BaseFragment implements TrendingTabCont
                 switchActivity(RepoDetailActivity.class, bundle);
             }
         });
+
+        presenter = new TrendingTabPresenter();
+        presenter.attachView(this);
+        presenter.loadRepos(language);
     }
 
     @Override

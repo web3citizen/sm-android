@@ -17,12 +17,17 @@
 
 package com.liuwuping.sm.view.stars;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.liuwp.androidtoolkit.recyclerview.itemevent.RecyclerItemClickSupport;
+import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Repo;
 import com.liuwuping.sm.view.base.BaseFragment;
@@ -59,7 +64,7 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
     @Override
     protected void initView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(), 0, 0, 0, R.dimen.dp10);
+        SimplePaddingDecoration decoration = new SimplePaddingDecoration(this.getActivity(), R.dimen.dp16, R.dimen.dp16, R.dimen.dp10, 0);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setHasFixedSize(true);
         adapter = new RepoAdapter();
@@ -74,6 +79,10 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
                 switchActivity(RepoDetailActivity.class, bundle);
             }
         });
+
+        starsPresenter = new StarsPresenter();
+        starsPresenter.attachView(this);
+        starsPresenter.loadRepos();
     }
 
     @Override
@@ -95,11 +104,54 @@ public class StarsFragment extends BaseFragment implements StarsContract.View {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        L.ii("onAttach");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        L.ii("onCreate");
+    }
+
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        L.ii("onCreateView");
+        return super.onCreateView(inflater, container, savedInstanceState);
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        L.ii("onViewCreated");
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        starsPresenter = new StarsPresenter();
-        starsPresenter.attachView(this);
-        starsPresenter.loadRepos();
+        L.ii("onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        L.ii("onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        L.ii("onStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        L.ii("onDestory");
     }
 
     @Override

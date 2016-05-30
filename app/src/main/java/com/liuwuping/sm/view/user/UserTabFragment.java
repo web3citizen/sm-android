@@ -93,11 +93,8 @@ public class UserTabFragment extends BaseFragment implements UserTabContract.Vie
         if (userAdapter != null) {
             recyclerView.setAdapter(userAdapter);
         }
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+
         presenter = new UserTagPresenter();
         presenter.attachView(this);
         if (type.equals(UserFragment.TAG_REPOS)) {

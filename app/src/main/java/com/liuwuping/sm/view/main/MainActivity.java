@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,16 +32,16 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.liuwuping.sm.R;
-import com.liuwuping.sm.util.ActivityUtils;
 import com.liuwuping.sm.util.CircleTransform;
 import com.liuwuping.sm.view.about.AboutFragment;
 import com.liuwuping.sm.view.base.BaseActivity;
-import com.liuwuping.sm.view.developer.DeveloperFragment;
 import com.liuwuping.sm.view.tags.TagsFragment;
 import com.liuwuping.sm.view.stars.StarsFragment;
 import com.liuwuping.sm.view.trending.TrendingFragment;
 import com.liuwuping.sm.view.user.UserFragment;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -49,8 +50,20 @@ public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
     private static final long DRAWER_CLOSE_DELAY_MILLS = 300L;
+    private static final int INDEX_TRENDING = 1;
+    private static final int INDEX_STAR = 2;
+    private static final int INDEX_TAG = 3;
+    private static final int INDEX_USER = 4;
+    private static final int INDEX_ABOUT = 5;
+    private static final String LAST_INDEX = "lastIndex";
+    private static final String LAST_TITLE = "lastTitle";
 
     private MainPresenter presenter;
+    private TrendingFragment trendingFragment;
+    private StarsFragment starsFragment;
+    private TagsFragment tagsFragment;
+    private UserFragment userFragment;
+    private AboutFragment aboutFragment;
 
 
     @Bind(R.id.toolbar_main)
@@ -61,6 +74,9 @@ public class MainActivity extends BaseActivity
     NavigationView navigationView;
 
     private ImageView imageView;
+    private int lastIndex = 1;
+    private int lastTitle = R.string.nav_trending;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +98,69 @@ public class MainActivity extends BaseActivity
         presenter.attachView(this);
         presenter.loadAvatar();
 
-        navigationView.setCheckedItem(R.id.nav_trending);
+
+        if (savedInstanceState != null) {
+            trendingFragment = (TrendingFragment) getSupportFragmentManager().findFragmentByTag(trendingFragment.getClass().getSimpleName());
+            tagsFragment = (TagsFragment) getSupportFragmentManager().findFragmentByTag(tagsFragment.getClass().getSimpleName());
+            starsFragment = (StarsFragment) getSupportFragmentManager().findFragmentByTag(starsFragment.getClass().getSimpleName());
+            userFragment = (UserFragment) getSupportFragmentManager().findFragmentByTag(userFragment.getClass().getSimpleName());
+            aboutFragment = (AboutFragment) getSupportFragmentManager().findFragmentByTag(aboutFragment.getClass().getSimpleName());
+            lastIndex = savedInstanceState.getInt(LAST_INDEX);
+            lastTitle = savedInstanceState.getInt(LAST_TITLE);
+            showFragment(lastIndex);
+        } else {
+            navigationView.setCheckedItem(R.id.nav_trending);
+            showFragment(lastIndex);
+        }
+//        ActivityUtils.replaceFragment(getSupportFragmentManager(), TrendingFragment.newInstance(), R.id.content_main);
+
+    }
 
 
-        ActivityUtils.replaceFragment(getSupportFragmentManager(), TrendingFragment.newInstance(), R.id.content_main);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(LAST_INDEX, lastIndex);
+        outState.putInt(LAST_TITLE, lastTitle);
+    }
 
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        drawer.closeDrawer(GravityCompat.START);
+        int id = item.getItemId();
+        if (id == R.id.nav_trending) {
+            lastTitle = R.string.nav_trending;
+            lastIndex = INDEX_TRENDING;
+        } else if (id == R.id.nav_star) {
+            lastTitle = R.string.nav_untag;
+            lastIndex = INDEX_STAR;
+        } else if (id == R.id.nav_tag) {
+            lastTitle = R.string.nav_tag;
+            lastIndex = INDEX_TAG;
+        } else if (id == R.id.nav_me) {
+            lastTitle = R.string.nav_me;
+            lastIndex = INDEX_USER;
+        } else if (id == R.id.nav_about) {
+            lastTitle = R.string.nav_about;
+            lastIndex = INDEX_ABOUT;
+        }
+        navigationView.setCheckedItem(id);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toolbar.setTitle(lastTitle);
+                showFragment(lastIndex);
+            }
+        }, DRAWER_CLOSE_DELAY_MILLS);
+        return true;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 
     @Override
@@ -99,44 +173,6 @@ public class MainActivity extends BaseActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        drawer.closeDrawer(GravityCompat.START);
-        int id = item.getItemId();
-        int title = 0;
-        Fragment fragment = null;
-        if (id == R.id.nav_trending) {
-            title = R.string.nav_trending;
-            fragment = TrendingFragment.newInstance();
-        } else if (id == R.id.nav_untag) {
-            title = R.string.nav_untag;
-            fragment = StarsFragment.newInstance();
-        } else if (id == R.id.nav_tag) {
-            title = R.string.nav_tag;
-            fragment = TagsFragment.newInstance();
-        } else if (id == R.id.nav_me) {
-            title = R.string.nav_me;
-            fragment = UserFragment.newInstance();
-        } else if (id == R.id.nav_about) {
-            title = R.string.nav_about;
-            fragment = AboutFragment.newInstance();
-        } else if (id == R.id.nav_developer) {
-            title = R.string.nav_developer;
-            fragment = DeveloperFragment.newInstance();
-        }
-        final int finalTitle = title;
-        final Fragment finalFragment = fragment;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                toolbar.setTitle(finalTitle);
-                ActivityUtils.replaceFragment(getSupportFragmentManager(), finalFragment, R.id.content_main);
-            }
-        }, DRAWER_CLOSE_DELAY_MILLS);
-        return true;
-    }
-
     @Override
     public void showUserAvatar(String imageUrl) {
         Picasso.with(this)
@@ -145,9 +181,63 @@ public class MainActivity extends BaseActivity
                 .into(imageView);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.detachView();
+    /**
+     * 显示Fragment
+     *
+     * @param position
+     */
+    private void showFragment(int position) {
+        Class target = TrendingFragment.class;
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
+        switch (position) {
+            case INDEX_TRENDING:
+                target = TrendingFragment.class;
+                if (trendingFragment == null) {
+                    trendingFragment = TrendingFragment.newInstance();
+                    ft.add(R.id.container_main, trendingFragment, trendingFragment.getClass().getSimpleName());
+                }
+                break;
+            case INDEX_STAR:
+                target = StarsFragment.class;
+                if (starsFragment == null) {
+                    starsFragment = StarsFragment.newInstance().newInstance();
+                    ft.add(R.id.container_main, starsFragment, starsFragment.getClass().getSimpleName());
+                }
+                break;
+            case INDEX_TAG:
+                target = TagsFragment.class;
+                if (tagsFragment == null) {
+                    tagsFragment = TagsFragment.newInstance();
+                    ft.add(R.id.container_main, tagsFragment, tagsFragment.getClass().getSimpleName());
+                }
+                break;
+            case INDEX_USER:
+                target = UserFragment.class;
+                if (userFragment == null) {
+                    userFragment = UserFragment.newInstance();
+                    ft.add(R.id.container_main, userFragment, userFragment.getClass().getSimpleName());
+                }
+                break;
+            case INDEX_ABOUT:
+                target = AboutFragment.class;
+                if (aboutFragment == null) {
+                    aboutFragment = AboutFragment.newInstance();
+                    ft.add(R.id.container_main, aboutFragment, aboutFragment.getClass().getSimpleName());
+                }
+                break;
+        }
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            for (Fragment fragment : fragments) {
+                if (target.isInstance(fragment)) {
+                    ft.show(fragment);
+                } else {
+                    ft.hide(fragment);
+                }
+            }
+        }
+        ft.commit();
     }
+
 }

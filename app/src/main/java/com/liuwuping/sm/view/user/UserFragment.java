@@ -94,14 +94,10 @@ public class UserFragment extends BaseFragment implements UserContract.View {
         viewPager.setAdapter(new UserFragPagerAdapter(getChildFragmentManager(), getActivity()));
         tabLayout.setupWithViewPager(viewPager);
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         presenter = new UserPresenter();
         presenter.attachView(this);
         presenter.loadLoginUser();
+
     }
 
     @Override

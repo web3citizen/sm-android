@@ -7,7 +7,7 @@
             android:icon="@drawable/trending"
             android:title="@string/nav_trending"/>
         <item
-            android:id="@+id/nav_untag"
+            android:id="@+id/nav_star"
             android:icon="@drawable/stars"
             android:title="@string/nav_untag"/>
         <item
@@ -23,10 +23,10 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/about"
             android:title="@string/nav_about"/>
-        <item
+        <!--<item
             android:id="@+id/nav_developer"
             android:icon="@drawable/developer"
-            android:title="@string/nav_developer"/>
+            android:title="@string/nav_developer"/>-->
     </group>
 
 </menu>

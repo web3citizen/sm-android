@@ -12,7 +12,7 @@
     <string name="nav_untag">未分类</string>
     <string name="nav_tag">标签</string>
     <string name="nav_me">我</string>
-    <string name="nav_about">关于App</string>
+    <string name="nav_about">关于</string>
     <string name="nav_developer">关于开发者</string>
     <!--repo-->
     <string name="repo_stars">stars:</string>
