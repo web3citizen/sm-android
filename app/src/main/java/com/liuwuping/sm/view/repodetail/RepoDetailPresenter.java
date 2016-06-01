@@ -17,6 +17,8 @@
 
 package com.liuwuping.sm.view.repodetail;
 
+import android.text.TextUtils;
+
 import com.google.gson.JsonObject;
 import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.data.DataManager;
@@ -36,7 +38,7 @@ import rx.schedulers.Schedulers;
  * Description:
  */
 public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> implements Presenter {
-    private Subscription subscription, subscription2;
+    private Subscription subscription, subscription2, subscription3;
 
     @Override
     public void detachView() {
@@ -46,6 +48,9 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
         }
         if (subscription2 != null) {
             subscription2.unsubscribe();
+        }
+        if (subscription3 != null) {
+            subscription3.unsubscribe();
         }
     }
 
@@ -94,6 +99,47 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
                         getMvpView().showHeaderImage(user.getAvatar_url());
                     }
                 });
+
+    }
+
+    @Override
+    public void isStar(String owner, String repo) {
+        checkViewAttached();
+        subscription3 = DataManager.isStar(owner, repo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(JsonObject jsonObject) {
+                        L.ii(jsonObject.toString());
+                        String msg = jsonObject.get("message").getAsString();
+                        if (TextUtils.isEmpty(msg)) {
+                            getMvpView().showStarState(false);
+                        } else
+                            getMvpView().showStarState(true);
+
+                    }
+                });
+
+    }
+
+    @Override
+    public void star(String owner, String repo) {
+
+    }
+
+    @Override
+    public void unStar(String owner, String repo) {
 
     }
 }

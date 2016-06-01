@@ -24,6 +24,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -34,7 +35,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Repo;
 import com.liuwuping.sm.view.base.BaseActivity;
@@ -69,6 +69,8 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
     TextView forkTv;
     @Bind(R.id.tv_repodetail_issue)
     TextView issueTv;
+    @Bind(R.id.fab_repodetail)
+    FloatingActionButton fab;
 
     private RepoDetailPresenter presenter;
 
@@ -118,6 +120,7 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
         presenter.attachView(this);
         presenter.getReadMeUrl(names[0], names[1]);
         presenter.getAvatarUrl(names[0]);
+        presenter.isStar(names[0], names[1]);
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
@@ -169,6 +172,14 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
 
                     }
                 });
+    }
+
+    @Override
+    public void showStarState(boolean isStar) {
+        if (isStar) {
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.star));
+        } else
+            fab.setImageDrawable(getResources().getDrawable(R.drawable.un_star));
     }
 
 

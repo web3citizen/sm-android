@@ -24,6 +24,7 @@ import com.liuwuping.sm.model.User;
 import java.util.List;
 
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -31,6 +32,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -101,4 +103,22 @@ public interface GithubApi {
 
     @GET("repos/{owner}/{repo}/readme")
     Observable<JsonObject> getReadMe(@Path("owner") String owner, @Path("repo") String repo);
+
+    /**
+     * ===star===
+     * {
+     * "message": "Not Found",
+     * "documentation_url": "https://developer.github.com/v3"
+     * }
+     * <p/>
+     * 204 no content
+     */
+    @GET("/user/starred/{owner}/{repo}")
+    Observable<JsonObject> isStar(@Path("owner") String owner, @Path("repo") String repo);
+
+    @PUT("/user/starred/{owner}/{repo}")
+    Observable<JsonObject> star(@Path("owner") String owner, @Path("repo") String repo);
+
+    @DELETE("/user/starred/{owner}/{repo}")
+    Observable<JsonObject> unStar(@Path("owner") String owner, @Path("repo") String repo);
 }

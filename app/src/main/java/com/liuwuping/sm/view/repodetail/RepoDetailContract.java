@@ -31,6 +31,8 @@ public interface RepoDetailContract {
         void showHtml(String url);
 
         void showHeaderImage(String url);
+
+        void showStarState(boolean isStar);
     }
 
     interface Presenter {
@@ -38,5 +40,11 @@ public interface RepoDetailContract {
         void getReadMeUrl(String owner, String repo);
 
         void getAvatarUrl(String username);
+
+        void isStar(String owner, String repo);
+
+        void star(String owner, String repo);
+
+        void unStar(String owner, String repo);
     }
 }

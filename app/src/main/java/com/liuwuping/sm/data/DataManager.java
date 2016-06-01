@@ -80,5 +80,17 @@ public class DataManager {
         return GithubClient.getInstance().get().getRepos(username);
     }
 
+    public static Observable<JsonObject> isStar(String owner, String repo) {
+        return GithubClient.getInstance().get().isStar(owner, repo);
+    }
+
+    public static Observable<JsonObject> star(String owner, String repo) {
+        return GithubClient.getInstance().get().star(owner, repo);
+    }
+
+    public static Observable<JsonObject> unStar(String owner, String repo) {
+        return GithubClient.getInstance().get().unStar(owner, repo);
+    }
+
 
 }

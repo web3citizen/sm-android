@@ -8,7 +8,7 @@
             android:title="@string/nav_trending"/>
         <item
             android:id="@+id/nav_star"
-            android:icon="@drawable/stars"
+            android:icon="@drawable/star"
             android:title="@string/nav_untag"/>
         <item
             android:id="@+id/nav_tag"
