@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Repo;
 import com.liuwuping.sm.view.base.BaseActivity;
@@ -42,6 +43,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Author:liuwuping
@@ -71,8 +73,17 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
     TextView issueTv;
     @Bind(R.id.fab_repodetail)
     FloatingActionButton fab;
+    @Bind(R.id.iv_repodetail_logo)
+    ImageView small;
+    @Bind(R.id.tv_repodetail_repo)
+    TextView repoNameTv;
+    @Bind(R.id.tv_repodetail_owner)
+    TextView repoOwnerTv;
+
 
     private RepoDetailPresenter presenter;
+    private boolean isStar;
+    private String login, repoName;
 
 
     @Override
@@ -88,6 +99,9 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
 
         Bundle bundle = getIntent().getExtras();
         final Repo repo = (Repo) bundle.get("repo");
+        String[] names = repo.getFull_name().split("/");
+        login = names[0];
+        repoName = names[1];
 
 
         appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -100,7 +114,7 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle(repo.getFull_name());
+                    collapsingToolbarLayout.setTitle(repoName);
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbarLayout.setTitle("");
@@ -111,16 +125,18 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
         });
 
 
+        repoNameTv.setText(repoName);
+        repoOwnerTv.setText(login);
         starTv.setText(String.valueOf(repo.getStargazers_count()));
         forkTv.setText(String.valueOf(repo.getForks()));
         issueTv.setText(String.valueOf(repo.getOpen_issues()));
 
-        String[] names = repo.getFull_name().split("/");
+
         presenter = new RepoDetailPresenter();
         presenter.attachView(this);
-        presenter.getReadMeUrl(names[0], names[1]);
-        presenter.getAvatarUrl(names[0]);
-        presenter.isStar(names[0], names[1]);
+        presenter.getReadMeUrl(login, repoName);
+        presenter.getAvatarUrl(login);
+        presenter.isStar(login, repoName);
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
@@ -137,6 +153,15 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
     @Override
     public void showHtml(String url) {
         webView.loadUrl(url);
+//        webView.loadDataWithBaseURL(null, url, "text/html", "UTF-8", null);
+    }
+
+    @OnClick(R.id.fab_repodetail)
+    public void fabClick() {
+        if (isStar) {
+            presenter.unStar(login, repoName);
+        } else
+            presenter.star(login, repoName);
 
     }
 
@@ -172,10 +197,18 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
 
                     }
                 });
+
+        Picasso.with(this)
+                .load(url)
+                .fit()
+                .centerCrop()
+                .into(small);
     }
 
     @Override
     public void showStarState(boolean isStar) {
+        L.ii("isStar:" + isStar);
+        this.isStar = isStar;
         if (isStar) {
             fab.setImageDrawable(getResources().getDrawable(R.drawable.star));
         } else

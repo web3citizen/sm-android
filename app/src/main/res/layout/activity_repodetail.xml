@@ -70,6 +70,38 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp16">
+
+                <ImageView
+                    android:id="@+id/iv_repodetail_logo"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"/>
+
+                <TextView
+                    android:id="@+id/tv_repodetail_repo"
+                    android:layout_marginLeft="@dimen/dp16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/iv_repodetail_logo"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    tools:text="Repo Name"/>
+
+                <TextView
+                    android:id="@+id/tv_repodetail_owner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/tv_repodetail_repo"
+                    android:layout_below="@id/tv_repodetail_repo"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    tools:text="Repo Name"/>
+
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

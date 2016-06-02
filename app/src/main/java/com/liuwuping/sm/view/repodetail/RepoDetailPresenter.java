@@ -18,6 +18,7 @@
 package com.liuwuping.sm.view.repodetail;
 
 import android.text.TextUtils;
+import android.util.Base64;
 
 import com.google.gson.JsonObject;
 import com.liuwp.androidtoolkit.utils.L;
@@ -26,6 +27,11 @@ import com.liuwuping.sm.model.User;
 import com.liuwuping.sm.view.base.BasePresenter;
 import com.liuwuping.sm.view.repodetail.RepoDetailContract.Presenter;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -38,7 +44,7 @@ import rx.schedulers.Schedulers;
  * Description:
  */
 public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> implements Presenter {
-    private Subscription subscription, subscription2, subscription3;
+    private Subscription subscription, subscription2, subscription3, subscription4, subscription5;
 
     @Override
     public void detachView() {
@@ -52,12 +58,18 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
         if (subscription3 != null) {
             subscription3.unsubscribe();
         }
+        if (subscription4 != null) {
+            subscription4.unsubscribe();
+        }
+        if (subscription5 != null) {
+            subscription5.unsubscribe();
+        }
     }
 
     @Override
     public void getReadMeUrl(String owner, String repo) {
         checkViewAttached();
-        subscription = DataManager.getReadme(owner, repo)
+        subscription = DataManager.getReadmeUrl(owner, repo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<JsonObject>() {
@@ -72,7 +84,6 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
                     @Override
                     public void onNext(JsonObject result) {
                         String htmlUrl = result.get("html_url").getAsString();
-                        L.ii("html_url:" + htmlUrl);
                         getMvpView().showHtml(htmlUrl);
                     }
                 });
@@ -116,18 +127,12 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
 
                     @Override
                     public void onError(Throwable e) {
-
+                        getMvpView().showStarState(false);
                     }
 
                     @Override
-                    public void onNext(JsonObject jsonObject) {
-                        L.ii(jsonObject.toString());
-                        String msg = jsonObject.get("message").getAsString();
-                        if (TextUtils.isEmpty(msg)) {
-                            getMvpView().showStarState(false);
-                        } else
-                            getMvpView().showStarState(true);
-
+                    public void onNext(JsonObject result) {
+                        getMvpView().showStarState(true);
                     }
                 });
 
@@ -135,11 +140,49 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
 
     @Override
     public void star(String owner, String repo) {
+        checkViewAttached();
+        subscription3 = DataManager.star(owner, repo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(JsonObject result) {
+                        getMvpView().showStarState(true);
+                    }
+                });
 
     }
 
     @Override
     public void unStar(String owner, String repo) {
+        checkViewAttached();
+        subscription3 = DataManager.unStar(owner, repo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<JsonObject>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(JsonObject result) {
+                        getMvpView().showStarState(false);
+                    }
+                });
 
     }
 }

@@ -25,6 +25,8 @@ import com.liuwuping.sm.model.User;
 import java.util.List;
 
 import io.realm.Realm;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -56,9 +58,14 @@ public class DataManager {
         return GithubClient.getInstance().get().getTrendingRepos(language);
     }
 
-    public static Observable<JsonObject> getReadme(String owner, String repo) {
-        return GithubClient.getInstance().get().getReadMe(owner, repo);
+    public static Observable<ResponseBody> getReadmeHtml(String owner, String repo) {
+        return GithubClient.getInstance().get().getReadMeHtml(owner, repo);
     }
+
+    public static Observable<JsonObject> getReadmeUrl(String owner, String repo) {
+        return GithubClient.getInstance().get().getReadMeUrl(owner, repo);
+    }
+
 
     public static Observable<User> getUser(String owner) {
         return GithubClient.getInstance().get().getUserInfo(owner);

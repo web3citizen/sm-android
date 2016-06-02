@@ -23,6 +23,8 @@ import com.liuwuping.sm.model.User;
 
 import java.util.List;
 
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -101,8 +103,18 @@ public interface GithubApi {
     Observable<List<Repo>> getTrendingRepos(@Query("language") String language);
 
 
+    /**
+     * @param owner
+     * @param repo
+     * @return 返回html标签内容
+     */
+    @Headers("Accept: application/vnd.github.VERSION.html")
     @GET("repos/{owner}/{repo}/readme")
-    Observable<JsonObject> getReadMe(@Path("owner") String owner, @Path("repo") String repo);
+    Observable<ResponseBody> getReadMeHtml(@Path("owner") String owner, @Path("repo") String repo);
+
+    @GET("repos/{owner}/{repo}/readme")
+    Observable<JsonObject> getReadMeUrl(@Path("owner") String owner, @Path("repo") String repo);
+
 
     /**
      * ===star===
