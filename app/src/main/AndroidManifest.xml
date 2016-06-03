@@ -25,6 +25,7 @@
 
         <activity android:name=".view.main.MainActivity"/>
         <activity android:name=".view.repodetail.RepoDetailActivity"/>
+        <activity android:name=".view.user.UserActivity"/>
     </application>
 
 </manifest>

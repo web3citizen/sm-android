@@ -38,7 +38,6 @@ import com.liuwuping.sm.view.base.BaseActivity;
 import com.liuwuping.sm.view.tags.TagsFragment;
 import com.liuwuping.sm.view.stars.StarsFragment;
 import com.liuwuping.sm.view.trending.TrendingFragment;
-import com.liuwuping.sm.view.user.UserFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -56,13 +55,11 @@ public class MainActivity extends BaseActivity
     private static final int INDEX_USER = 4;
     private static final int INDEX_ABOUT = 5;
     private static final String LAST_INDEX = "lastIndex";
-    private static final String LAST_TITLE = "lastTitle";
 
     private MainPresenter presenter;
     private TrendingFragment trendingFragment;
     private StarsFragment starsFragment;
     private TagsFragment tagsFragment;
-    private UserFragment userFragment;
     private AboutFragment aboutFragment;
 
 
@@ -103,10 +100,8 @@ public class MainActivity extends BaseActivity
             trendingFragment = (TrendingFragment) getSupportFragmentManager().findFragmentByTag(trendingFragment.getClass().getSimpleName());
             tagsFragment = (TagsFragment) getSupportFragmentManager().findFragmentByTag(tagsFragment.getClass().getSimpleName());
             starsFragment = (StarsFragment) getSupportFragmentManager().findFragmentByTag(starsFragment.getClass().getSimpleName());
-            userFragment = (UserFragment) getSupportFragmentManager().findFragmentByTag(userFragment.getClass().getSimpleName());
             aboutFragment = (AboutFragment) getSupportFragmentManager().findFragmentByTag(aboutFragment.getClass().getSimpleName());
             lastIndex = savedInstanceState.getInt(LAST_INDEX);
-            lastTitle = savedInstanceState.getInt(LAST_TITLE);
             showFragment(lastIndex);
         } else {
             navigationView.setCheckedItem(R.id.nav_trending);
@@ -121,7 +116,6 @@ public class MainActivity extends BaseActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(LAST_INDEX, lastIndex);
-        outState.putInt(LAST_TITLE, lastTitle);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -212,13 +206,13 @@ public class MainActivity extends BaseActivity
                     ft.add(R.id.container_main, tagsFragment, tagsFragment.getClass().getSimpleName());
                 }
                 break;
-            case INDEX_USER:
+           /* case INDEX_USER:
                 target = UserFragment.class;
                 if (userFragment == null) {
                     userFragment = UserFragment.newInstance();
                     ft.add(R.id.container_main, userFragment, userFragment.getClass().getSimpleName());
                 }
-                break;
+                break;*/
             case INDEX_ABOUT:
                 target = AboutFragment.class;
                 if (aboutFragment == null) {

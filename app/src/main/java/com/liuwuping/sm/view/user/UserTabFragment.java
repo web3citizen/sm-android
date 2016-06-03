@@ -82,7 +82,7 @@ public class UserTabFragment extends BaseFragment implements UserTabContract.Vie
                 R.dimen.dp10, 0);
         recyclerView.addItemDecoration(decoration);
         recyclerView.setHasFixedSize(true);
-        if (type.equals(UserFragment.TAG_REPOS)) {
+        if (type.equals(UserActivity.TAG_REPOS)) {
             repoAdapter = new RepoAdapter(false);
         } else {
             userAdapter = new UserAdapter(getActivity());
@@ -97,9 +97,9 @@ public class UserTabFragment extends BaseFragment implements UserTabContract.Vie
 
         presenter = new UserTagPresenter();
         presenter.attachView(this);
-        if (type.equals(UserFragment.TAG_REPOS)) {
+        if (type.equals(UserActivity.TAG_REPOS)) {
             presenter.loadRepos(login);
-        } else if (type.equals(UserFragment.TAG_Followers)) {
+        } else if (type.equals(UserActivity.TAG_Followers)) {
             presenter.loadFollowers(login);
         } else {
             presenter.loadFollowing(login);

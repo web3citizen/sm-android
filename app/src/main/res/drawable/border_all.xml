@@ -23,10 +23,10 @@
         android:color="@color/gray"/>
     <corners android:radius="@dimen/dp8"/>
 
-    <padding
-        android:bottom="@dimen/dp8"
-        android:left="@dimen/dp8"
-        android:right="@dimen/dp8"
-        android:top="@dimen/dp8"/>
+  <!--  <padding
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp"/>-->
 
 </shape>

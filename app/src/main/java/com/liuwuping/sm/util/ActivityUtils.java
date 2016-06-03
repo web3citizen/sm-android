@@ -38,7 +38,7 @@ public class ActivityUtils {
         FragmentTransaction ft = fm.beginTransaction();
         ft.setCustomAnimations(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit);
         ft.replace(frameId, fragment, fragment.getClass().getSimpleName());
-        ft.addToBackStack(null);
+//        ft.addToBackStack(null);
         ft.commit();
     }
 

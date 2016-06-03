@@ -28,6 +28,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -39,6 +42,7 @@ import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.model.Repo;
 import com.liuwuping.sm.view.base.BaseActivity;
+import com.liuwuping.sm.view.user.UserActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -126,7 +130,9 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
 
 
         repoNameTv.setText(repoName);
-        repoOwnerTv.setText(login);
+        SpannableString spannableString = new SpannableString(login);
+        spannableString.setSpan(new UnderlineSpan(), 0, login.length(), 0);
+        repoOwnerTv.setText(spannableString);
         starTv.setText(String.valueOf(repo.getStargazers_count()));
         forkTv.setText(String.valueOf(repo.getForks()));
         issueTv.setText(String.valueOf(repo.getOpen_issues()));
@@ -163,6 +169,13 @@ public class RepoDetailActivity extends BaseActivity implements RepoDetailContra
         } else
             presenter.star(login, repoName);
 
+    }
+
+    @OnClick(R.id.tv_repodetail_owner)
+    public void ownerTvClick() {
+        Bundle bundle = new Bundle();
+        bundle.putString(UserActivity.EXTRA_OWNER, login);
+        switchActivity(UserActivity.class, bundle);
     }
 
     @Override

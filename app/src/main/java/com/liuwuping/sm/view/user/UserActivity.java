@@ -17,20 +17,21 @@
 
 package com.liuwuping.sm.view.user;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.graphics.Palette;
-import android.util.Log;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,7 +39,7 @@ import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.data.local.SharedPrefManager;
 import com.liuwuping.sm.model.User;
-import com.liuwuping.sm.view.base.BaseFragment;
+import com.liuwuping.sm.view.base.BaseActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -46,17 +47,18 @@ import butterknife.Bind;
 
 /**
  * Author:liuwuping
- * Date: 2016/5/23
+ * Date: 2016/6/3
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class UserFragment extends BaseFragment implements UserContract.View {
+public class UserActivity extends BaseActivity implements UserContract.View {
 
+    public static final String EXTRA_OWNER = "owner";
     public static final String TAG_REPOS = "Repos";
     public static final String TAG_Followers = "Followers";
     public static final String TAG_Following = "Following";
-    public static final String PARAM_USERNAME = "username";
-
+    private String owner;
+    private UserPresenter presenter;
 
     @Bind(R.id.tab_user)
     TabLayout tabLayout;
@@ -72,48 +74,52 @@ public class UserFragment extends BaseFragment implements UserContract.View {
     TextView locationTv;
     @Bind(R.id.tv_user_email)
     TextView emailTv;
+    @Bind(R.id.toolbar_user)
+    Toolbar toolbar;
     @Bind(R.id.collapse_user)
     CollapsingToolbarLayout collapsingToolbarLayout;
 
-
-    private UserPresenter presenter;
-
-
-    public static UserFragment newInstance() {
-
-        Bundle args = new Bundle();
-
-        UserFragment fragment = new UserFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    protected void initView() {
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(new UserFragPagerAdapter(getChildFragmentManager(), getActivity()));
-        tabLayout.setupWithViewPager(viewPager);
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            owner = bundle.getString(EXTRA_OWNER);
+        }
+        if (TextUtils.isEmpty(owner)) {
+            owner = SharedPrefManager.getInstance().getStringValue(Constants.LOGIN);
+        }
+        initView();
         presenter = new UserPresenter();
         presenter.attachView(this);
-        presenter.loadLoginUser();
+        if (TextUtils.isEmpty(owner)) {
+            presenter.loadLoginUser();
+        } else
+            presenter.loadUser(owner);
 
     }
 
+    private void initView() {
+        setSupportActionBar(toolbar);
+        ActionBar bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setDisplayShowHomeEnabled(true);
+        bar.setHomeButtonEnabled(true);
+        bar.setTitle(owner);
+
+        collapsingToolbarLayout.setTitleEnabled(false);
+
+        viewPager.setOffscreenPageLimit(2);
+        viewPager.setAdapter(new UserFragPagerAdapter(getSupportFragmentManager(), owner));
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         presenter.detachView();
-    }
-
-    @Override
-    protected int getContentViewLayoutId() {
-        return R.layout.frag_user;
-    }
-
-    @Override
-    protected View getLoadingTargetView() {
-        return null;
     }
 
     @Override
@@ -122,7 +128,7 @@ public class UserFragment extends BaseFragment implements UserContract.View {
         nameTv.setText(user.getName());
         locationTv.setText(user.getLocation());
         emailTv.setText(user.getEmail());
-        Picasso.with(getActivity())
+        Picasso.with(this)
                 .load(user.getAvatar_url())
                 .fit()
                 .into(avatar, new Callback() {
@@ -155,19 +161,21 @@ public class UserFragment extends BaseFragment implements UserContract.View {
 
     }
 
+
     public class UserFragPagerAdapter extends FragmentPagerAdapter {
+        private String owner;
         private final int PAGE_COUNT = 3;
-        private String tabTitles[] = new String[]{UserFragment.TAG_REPOS, UserFragment.TAG_Followers, UserFragment.TAG_Following};
+        private String tabTitles[] = new String[]{UserActivity.TAG_REPOS, UserActivity.TAG_Followers, UserActivity.TAG_Following};
 
 
-        public UserFragPagerAdapter(FragmentManager fm, Context context) {
+        public UserFragPagerAdapter(FragmentManager fm, String owner) {
             super(fm);
+            this.owner = owner;
         }
 
         @Override
         public Fragment getItem(int position) {
-            String login = SharedPrefManager.getInstance().getStringValue(Constants.LOGIN);
-            return UserTabFragment.newInstance(login, tabTitles[position]);
+            return UserTabFragment.newInstance(owner, tabTitles[position]);
         }
 
         @Override

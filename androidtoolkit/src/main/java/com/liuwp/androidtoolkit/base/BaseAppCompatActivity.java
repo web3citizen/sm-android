@@ -18,6 +18,7 @@
 package com.liuwp.androidtoolkit.base;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 
@@ -53,12 +54,13 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.activity_right_enter, R.anim.activity_left_exit);
     }
 
-    protected void switchThenFinish(Class<?> nextClass) {
+    protected void switchActivity(Class<?> nextClass, Bundle bundle) {
         Intent it = new Intent(this, nextClass);
+        it.putExtras(bundle);
         startActivity(it);
-        this.finish();
         overridePendingTransition(R.anim.activity_right_enter, R.anim.activity_left_exit);
     }
+
 
     protected void switchActivity(Intent it) {
         startActivity(it);
