@@ -31,6 +31,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.R;
 import com.liuwuping.sm.util.CircleTransform;
 import com.liuwuping.sm.view.about.AboutFragment;
@@ -38,6 +39,7 @@ import com.liuwuping.sm.view.base.BaseActivity;
 import com.liuwuping.sm.view.tags.TagsFragment;
 import com.liuwuping.sm.view.stars.StarsFragment;
 import com.liuwuping.sm.view.trending.TrendingFragment;
+import com.liuwuping.sm.view.user.UserActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,8 +54,7 @@ public class MainActivity extends BaseActivity
     private static final int INDEX_TRENDING = 1;
     private static final int INDEX_STAR = 2;
     private static final int INDEX_TAG = 3;
-    private static final int INDEX_USER = 4;
-    private static final int INDEX_ABOUT = 5;
+    private static final int INDEX_ABOUT = 4;
     private static final String LAST_INDEX = "lastIndex";
 
     private MainPresenter presenter;
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity
     private ImageView imageView;
     private int lastIndex = 1;
     private int lastTitle = R.string.nav_trending;
+    private int lastSelect = R.id.nav_trending;
 
 
     @Override
@@ -96,18 +98,17 @@ public class MainActivity extends BaseActivity
         presenter.loadAvatar();
 
 
-        if (savedInstanceState != null) {
+        /*if (savedInstanceState != null) {
             trendingFragment = (TrendingFragment) getSupportFragmentManager().findFragmentByTag(trendingFragment.getClass().getSimpleName());
             tagsFragment = (TagsFragment) getSupportFragmentManager().findFragmentByTag(tagsFragment.getClass().getSimpleName());
             starsFragment = (StarsFragment) getSupportFragmentManager().findFragmentByTag(starsFragment.getClass().getSimpleName());
             aboutFragment = (AboutFragment) getSupportFragmentManager().findFragmentByTag(aboutFragment.getClass().getSimpleName());
             lastIndex = savedInstanceState.getInt(LAST_INDEX);
             showFragment(lastIndex);
-        } else {
-            navigationView.setCheckedItem(R.id.nav_trending);
-            showFragment(lastIndex);
-        }
-//        ActivityUtils.replaceFragment(getSupportFragmentManager(), TrendingFragment.newInstance(), R.id.content_main);
+        } else {*/
+        navigationView.setCheckedItem(R.id.nav_trending);
+        showFragment(lastIndex);
+//    }
 
     }
 
@@ -116,6 +117,15 @@ public class MainActivity extends BaseActivity
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(LAST_INDEX, lastIndex);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.setCheckedItem(lastSelect);
+        L.ii("last select:" + lastSelect);
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -133,11 +143,19 @@ public class MainActivity extends BaseActivity
             lastTitle = R.string.nav_tag;
             lastIndex = INDEX_TAG;
         } else if (id == R.id.nav_me) {
-            lastTitle = R.string.nav_me;
-            lastIndex = INDEX_USER;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    switchActivity(UserActivity.class);
+                }
+            }, DRAWER_CLOSE_DELAY_MILLS);
+            return true;
         } else if (id == R.id.nav_about) {
             lastTitle = R.string.nav_about;
             lastIndex = INDEX_ABOUT;
+        }
+        if (id != R.id.nav_me) {
+            lastSelect = id;
         }
         navigationView.setCheckedItem(id);
         new Handler().postDelayed(new Runnable() {
@@ -206,13 +224,6 @@ public class MainActivity extends BaseActivity
                     ft.add(R.id.container_main, tagsFragment, tagsFragment.getClass().getSimpleName());
                 }
                 break;
-           /* case INDEX_USER:
-                target = UserFragment.class;
-                if (userFragment == null) {
-                    userFragment = UserFragment.newInstance();
-                    ft.add(R.id.container_main, userFragment, userFragment.getClass().getSimpleName());
-                }
-                break;*/
             case INDEX_ABOUT:
                 target = AboutFragment.class;
                 if (aboutFragment == null) {

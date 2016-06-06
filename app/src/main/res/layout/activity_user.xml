@@ -76,7 +76,8 @@
                         android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="小武站台"/>
+                        tools:text="小武站台"
+                        android:textColor="@color/white"/>
 
                     <Space
                         android:layout_width="wrap_content"
@@ -87,7 +88,8 @@
                         android:id="@+id/tv_user_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="thinkSKy1206"/>
+                        tools:text="thinkSKy1206"
+                        android:textColor="@color/white"/>
 
 
                     <Space
@@ -98,7 +100,8 @@
                         android:id="@+id/tv_user_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="Guangzhou,China"/>
+                        tools:text="Guangzhou,China"
+                        android:textColor="@color/white"/>
 
                     <Space
                         android:layout_width="wrap_content"
@@ -108,7 +111,8 @@
                         android:id="@+id/tv_user_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="liuwuping1206@163.com"/>
+                        tools:text="liuwuping1206@163.com"
+                        android:textColor="@color/white"/>
 
                 </LinearLayout>
 

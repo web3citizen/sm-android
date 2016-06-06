@@ -36,6 +36,7 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Author:liuwuping
@@ -44,32 +45,28 @@ import rx.schedulers.Schedulers;
  * Description:
  */
 public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> implements Presenter {
-    private Subscription subscription, subscription2, subscription3, subscription4, subscription5;
+    private CompositeSubscription compositeSubscription;
+
+    @Override
+    public void attachView(RepoDetailContract.View view) {
+        super.attachView(view);
+        if (compositeSubscription == null) {
+            compositeSubscription = new CompositeSubscription();
+        }
+    }
 
     @Override
     public void detachView() {
         super.detachView();
-        if (subscription != null) {
-            subscription.unsubscribe();
-        }
-        if (subscription2 != null) {
-            subscription2.unsubscribe();
-        }
-        if (subscription3 != null) {
-            subscription3.unsubscribe();
-        }
-        if (subscription4 != null) {
-            subscription4.unsubscribe();
-        }
-        if (subscription5 != null) {
-            subscription5.unsubscribe();
+        if (compositeSubscription != null) {
+            compositeSubscription.unsubscribe();
         }
     }
 
     @Override
     public void getReadMeUrl(String owner, String repo) {
         checkViewAttached();
-        subscription = DataManager.getReadmeUrl(owner, repo)
+        compositeSubscription.add(DataManager.getReadmeUrl(owner, repo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<JsonObject>() {
@@ -86,14 +83,14 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
                         String htmlUrl = result.get("html_url").getAsString();
                         getMvpView().showHtml(htmlUrl);
                     }
-                });
+                }));
 
     }
 
     @Override
     public void getAvatarUrl(String username) {
         checkViewAttached();
-        subscription2 = DataManager.getUser(username)
+        compositeSubscription.add(DataManager.getUser(username)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<User>() {
@@ -109,14 +106,14 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
                     public void onNext(User user) {
                         getMvpView().showHeaderImage(user.getAvatar_url());
                     }
-                });
+                }));
 
     }
 
     @Override
     public void isStar(String owner, String repo) {
         checkViewAttached();
-        subscription3 = DataManager.isStar(owner, repo)
+        compositeSubscription.add(DataManager.isStar(owner, repo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<JsonObject>() {
@@ -134,14 +131,14 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
                     public void onNext(JsonObject result) {
                         getMvpView().showStarState(true);
                     }
-                });
+                }));
 
     }
 
     @Override
     public void star(String owner, String repo) {
         checkViewAttached();
-        subscription3 = DataManager.star(owner, repo)
+        compositeSubscription.add(DataManager.star(owner, repo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<JsonObject>() {
@@ -158,14 +155,14 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
                     public void onNext(JsonObject result) {
                         getMvpView().showStarState(true);
                     }
-                });
+                }));
 
     }
 
     @Override
     public void unStar(String owner, String repo) {
         checkViewAttached();
-        subscription3 = DataManager.unStar(owner, repo)
+        compositeSubscription.add(DataManager.unStar(owner, repo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<JsonObject>() {
@@ -182,7 +179,7 @@ public class RepoDetailPresenter extends BasePresenter<RepoDetailContract.View> 
                     public void onNext(JsonObject result) {
                         getMvpView().showStarState(false);
                     }
-                });
+                }));
 
     }
 }
