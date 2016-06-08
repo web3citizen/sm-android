@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -23,9 +23,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.main.MainActivity"/>
-        <activity android:name=".view.repodetail.RepoDetailActivity"/>
-        <activity android:name=".view.user.UserActivity"/>
+        <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.repodetail.RepoDetailActivity"/>
+        <activity android:name=".ui.user.UserActivity"/>
     </application>
 
 </manifest>
