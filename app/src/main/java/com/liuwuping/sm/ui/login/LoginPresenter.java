@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.data.DataManager;
-import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.data.local.SharedPrefHelper;
 import com.liuwuping.sm.ui.base.BasePresenter;
 
 import rx.Subscriber;
@@ -76,7 +76,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                         getMvpView().hideLoadingDialog();
                         String token = result.get("access_token").getAsString();
                         L.ii("access token:" + token);
-                        SharedPrefManager.getInstance().putStringValue(Constants.ACCESS_TOKEN, token);
+                        SharedPrefHelper.getInstance().putStringValue(Constants.ACCESS_TOKEN, token);
                         getMvpView().enterMain();
                     }
                 });

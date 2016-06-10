@@ -29,27 +29,27 @@ import com.liuwp.androidtoolkit.utils.L;
  * Email:liuwuping1206@163.com|liuwuping1206@gmail.com
  * Description:
  */
-public class SharedPrefManager {
+public class SharedPrefHelper {
     private static final String PREF_NAME = "com.liuwp.sm";
-    private static SharedPrefManager instance;
+    private static SharedPrefHelper instance;
     private final SharedPreferences pref;
 
 
-    private SharedPrefManager(Context context) {
+    private SharedPrefHelper(Context context) {
         pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
     public static synchronized void init(Context context) {
         if (context != null) {
-            instance = new SharedPrefManager(context);
-            L.ii("SharedPrefManager init");
+            instance = new SharedPrefHelper(context);
+            L.ii("SharedPrefHelper init");
         }
     }
 
-    public static synchronized SharedPrefManager getInstance() {
+    public static synchronized SharedPrefHelper getInstance() {
         if (instance == null) {
             throw new IllegalStateException(
-                    "SharedPrefManager is not initialized, call init(..) method first.");
+                    "SharedPrefHelper is not initialized, call init(..) method first.");
         }
         return instance;
     }

@@ -19,7 +19,7 @@ package com.liuwuping.sm.ui.main;
 
 import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.data.DataManager;
-import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.data.local.SharedPrefHelper;
 import com.liuwuping.sm.model.User;
 import com.liuwuping.sm.ui.base.BasePresenter;
 
@@ -62,7 +62,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
                     @Override
                     public void onNext(User user) {
-                        SharedPrefManager.getInstance().putStringValue(Constants.LOGIN, user.getLogin());
+                        SharedPrefHelper.getInstance().putStringValue(Constants.LOGIN, user.getLogin());
                         getMvpView().showUserAvatar(user.getAvatar_url());
                     }
                 });

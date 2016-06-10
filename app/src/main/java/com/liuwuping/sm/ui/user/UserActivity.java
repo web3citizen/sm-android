@@ -37,7 +37,7 @@ import android.widget.TextView;
 
 import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.R;
-import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.data.local.SharedPrefHelper;
 import com.liuwuping.sm.model.User;
 import com.liuwuping.sm.ui.base.BaseActivity;
 import com.squareup.picasso.Callback;
@@ -88,7 +88,7 @@ public class UserActivity extends BaseActivity implements UserContract.View {
             owner = bundle.getString(EXTRA_OWNER);
         }
         if (TextUtils.isEmpty(owner)) {
-            owner = SharedPrefManager.getInstance().getStringValue(Constants.LOGIN);
+            owner = SharedPrefHelper.getInstance().getStringValue(Constants.LOGIN);
         }
         initView();
         presenter = new UserPresenter();

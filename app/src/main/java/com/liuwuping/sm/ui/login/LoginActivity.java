@@ -32,7 +32,7 @@ import android.widget.ProgressBar;
 import com.liuwp.androidtoolkit.utils.L;
 import com.liuwuping.sm.Constants;
 import com.liuwuping.sm.R;
-import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.data.local.SharedPrefHelper;
 import com.liuwuping.sm.ui.base.BaseActivity;
 import com.liuwuping.sm.ui.main.MainActivity;
 
@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        String accessToken = SharedPrefManager.getInstance().getStringValue(Constants.ACCESS_TOKEN);
+        String accessToken = SharedPrefHelper.getInstance().getStringValue(Constants.ACCESS_TOKEN);
         if (!TextUtils.isEmpty(accessToken)) {
             enterMain();
             return;

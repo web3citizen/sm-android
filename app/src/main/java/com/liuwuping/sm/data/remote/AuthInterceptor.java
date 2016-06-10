@@ -20,7 +20,7 @@ package com.liuwuping.sm.data.remote;
 import android.text.TextUtils;
 
 import com.liuwuping.sm.Constants;
-import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.data.local.SharedPrefHelper;
 
 import java.io.IOException;
 
@@ -42,7 +42,7 @@ public class AuthInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        String token = SharedPrefManager.getInstance().getStringValue(Constants.ACCESS_TOKEN);
+        String token = SharedPrefHelper.getInstance().getStringValue(Constants.ACCESS_TOKEN);
         Request original = chain.request();
         if (!TextUtils.isEmpty(token)) {
             Request.Builder requestBuilder = original.newBuilder()

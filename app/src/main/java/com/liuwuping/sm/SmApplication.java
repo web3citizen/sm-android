@@ -21,7 +21,7 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 import com.liuwp.androidtoolkit.utils.L;
-import com.liuwuping.sm.data.local.SharedPrefManager;
+import com.liuwuping.sm.data.local.SharedPrefHelper;
 import com.orhanobut.logger.LogLevel;
 
 import io.realm.Realm;
@@ -47,7 +47,7 @@ public class SmApplication extends Application {
                 .setMethodOffset(1);           // default 0
         L.init(TAG).setLogLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE);
         //sharedPref
-        SharedPrefManager.init(getApplicationContext());
+        SharedPrefHelper.init(getApplicationContext());
         //realm
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfiguration);
